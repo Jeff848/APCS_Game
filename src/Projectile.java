@@ -10,4 +10,16 @@ public class Projectile extends MovingImage implements Ability{
 		super(filename, x, y, w, h);
 	}
 
+	@Override
+	public void use() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getCoolDown() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
