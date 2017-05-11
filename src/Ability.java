@@ -1,6 +1,6 @@
 
 public interface Ability {
 	void use();
-	int getCoolDown();
-	
+	void putOnCoolDown();
+	void checkCollision();
 }
