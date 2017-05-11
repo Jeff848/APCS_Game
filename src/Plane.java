@@ -5,13 +5,10 @@ public abstract class Plane extends MovingImage{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Ability ab1;
-	private Ability ab2;
-	private Ability ab3;
-	private Ability ab4;
+	private Ability[] ab = new Ability[4];
 	
 	
-	public Plane(String filename, int x, int y, int w, int h) {
+	public Plane(String filename, int x, int y, int w, int h, Ability[] a) {
 		super(filename, x, y, w, h);
 		// TODO Auto-generated constructor stub
 	}
@@ -23,4 +20,6 @@ public abstract class Plane extends MovingImage{
 	public abstract void ab2();
 	public abstract void ab3();
 	public abstract void ab4();
+	
+	
 }
