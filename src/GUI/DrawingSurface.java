@@ -1,4 +1,4 @@
-
+package GUI;
 
 
 import java.awt.Point;
@@ -51,10 +51,7 @@ public class DrawingSurface extends PApplet {
 	
 	
 	public void keyPressed() {
-		if (keyCode == KeyEvent.VK_SPACE) {
-			
-		}
-		else if (keyCode == KeyEvent.VK_1) {
+		if (keyCode == KeyEvent.VK_1) {
 			p1.ab1();
 		}
 		else if (keyCode == KeyEvent.VK_2) {
@@ -81,10 +78,7 @@ public class DrawingSurface extends PApplet {
 		
 		
 		
-		if (keyCode == KeyEvent.VK_SPACE) {
-			
-		}
-		else if (keyCode == KeyEvent.VK_7) {
+		if (keyCode == KeyEvent.VK_7) {
 			p2.ab1();
 		}
 		else if (keyCode == KeyEvent.VK_8) {
