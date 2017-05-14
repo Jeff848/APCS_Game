@@ -1,7 +1,9 @@
+package Main;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+import GUI.DrawingSurface;
 import processing.awt.PSurfaceAWT;
 
 public class AerialRoyale {
