@@ -5,7 +5,11 @@ import javax.swing.JFrame;
 
 import GUI.DrawingSurface;
 import processing.awt.PSurfaceAWT;
-
+/**
+ * Creates the window that hosts the game
+ * @author jeffrey_ma, yash_bengali, neeraj_senthil
+ *
+ */
 public class AerialRoyale {
 	public static void main (String[] args)
 	{
@@ -13,6 +17,7 @@ public class AerialRoyale {
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
 		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
 		JFrame window = (JFrame) canvas.getFrame();
+		window.setTitle("Aerial Royale");
 		window.setSize(500, 500);
 		window.setMinimumSize(new Dimension(100, 100));
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

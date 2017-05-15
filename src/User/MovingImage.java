@@ -45,6 +45,8 @@ public class MovingImage extends Rectangle2D.Double {
 	public void moveByAmount(double x, double y) {
 		super.x += x;
 		super.y += y;
+		System.out.println();
+		System.out.println();
 	}
 	
 	public void applyWindowLimits(int windowWidth, int windowHeight) {

@@ -21,7 +21,16 @@ public class User extends MovingImage{
 	
 	private Ability[] ab = new Ability[4];
 	
-	
+	/** 
+	 * Makes a plane with the parameters
+	 * @param image- PImage of plane
+	 * @param x- x coord
+	 * @param y- y coord
+	 * @param w- width
+	 * @param h- height
+	 * @param a- ability list
+	 * @param l- dictates which side the plane is on
+	 */
 	public User(PImage image, int x, int y, int w, int h, Ability[] a, boolean l) {
 		super(image, x, y, w, h);
 		ab = a;
@@ -31,12 +40,26 @@ public class User extends MovingImage{
 		yDirection = 0;
 		// TODO Auto-generated constructor stub
 	}
+	/**
+	 * Makes a plane with the parameters (null img)
+	 * @param x- x coord
+	 * @param y- y coord
+	 * @param w- width
+	 * @param h- height
+	 * @param a- ability list
+	 * @param l- dictates which side the plane is on
+	 */
 	public User(int x, int y, int i, int j, Ability[] a, boolean l) {
 		super(x,y,i,j);
 		ab = a;
 		health = 200;
 		isFacingLeft = l;
 	}
+	/**
+	 * Moves in the x direction and the y direction- scales with the window size
+	 * @param windowWidth- window width
+	 * @param windowHeight- window height
+	 */
 	public void move(int windowWidth, int windowHeight){
 		if(xDirection==LEFT)
 		{
@@ -44,6 +67,7 @@ public class User extends MovingImage{
 		}else if(xDirection == RIGHT){
 			moveByAmount((int)(moveAmount/500.0 * windowWidth),0);
 		}
+		
 		if(yDirection == UP){
 			moveByAmount(0,-(int)(moveAmount/500.0 * windowWidth));
 		}else if(yDirection == DOWN)
@@ -52,13 +76,18 @@ public class User extends MovingImage{
 		}
 		
 	}
+	/**
+	 * Makes sure the plane is within its bounds on either side
+	 * @param windowWidth- window Width
+	 * @param windowHeight- window Height
+	 */
 	public void applyWindowLimits(int windowWidth, int windowHeight)
 	{
 		if(isFacingLeft)
 		{
 			setX(Math.min(getX(),windowWidth-width));
 			setY(Math.min(getY(),windowHeight-height));
-			setX(Math.max(windowWidth/2-width,getX()));
+			setX(Math.max(windowWidth/2,getX()));
 			setY(Math.max(0,getY()));
 		}else
 		{
@@ -68,25 +97,13 @@ public class User extends MovingImage{
 			setY(Math.max(0,getY()));
 		}
 	}
-	public void draw(DrawingSurface s)
-	{
-		if(isFacingLeft)
-		{
-			s.pushMatrix();
-			s.scale((float) -1.0);
-			s.image(getImage(),(int)getX(),(int)getY());
-			s.popMatrix();
-		} else
-		{
-			super.draw(s);
-		}
-	}
 	/*
 	public abstract void ab1();
 	public abstract void ab2();
 	public abstract void ab3();
 	public abstract void ab4();
 	*/
+	
 	public int getHealth(){
 		return health;
 	}
