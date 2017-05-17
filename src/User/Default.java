@@ -16,6 +16,10 @@ public class Default extends User{
 	public Default(int x, int y, Ability[] a, boolean l) {
 		super(x, y, 128, 64, a, l);
 	}
+	public String getName()
+	{
+		return "PlaneR";
+	}
 
 	
 	

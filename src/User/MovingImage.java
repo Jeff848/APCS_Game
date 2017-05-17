@@ -22,6 +22,7 @@ public class MovingImage extends Rectangle2D.Double {
 	
 	// CONSTRUCTORS
 	public MovingImage(String filename, DrawingSurface s, int x, int y, int w, int h) {
+		this(x,y,w,h);	
 		image = s.loadImage(filename);
 	}
 	
@@ -45,8 +46,6 @@ public class MovingImage extends Rectangle2D.Double {
 	public void moveByAmount(double x, double y) {
 		super.x += x;
 		super.y += y;
-		System.out.println();
-		System.out.println();
 	}
 	
 	public void applyWindowLimits(int windowWidth, int windowHeight) {
@@ -65,12 +64,7 @@ public class MovingImage extends Rectangle2D.Double {
 	{
 		return image;
 	}
-	public double getX(){
-		return x;
-	}
-	public double getY(){
-		return y;
-	}
+	
 	public double getWidth(){
 		return width;
 	}

@@ -1,5 +1,7 @@
 package User;
 
+import java.util.ArrayList;
+
 import Abilities.Ability;
 import GUI.DrawingSurface;
 import processing.core.PImage;
@@ -18,8 +20,7 @@ public class User extends MovingImage{
 	private int health;
 	private int xDirection;
 	private int yDirection;
-	
-	private Ability[] ab = new Ability[4];
+
 	
 	/** 
 	 * Makes a plane with the parameters
@@ -33,7 +34,6 @@ public class User extends MovingImage{
 	 */
 	public User(PImage image, int x, int y, int w, int h, Ability[] a, boolean l) {
 		super(image, x, y, w, h);
-		ab = a;
 		health = 200;
 		isFacingLeft = l;
 		xDirection = 0;
@@ -51,7 +51,6 @@ public class User extends MovingImage{
 	 */
 	public User(int x, int y, int i, int j, Ability[] a, boolean l) {
 		super(x,y,i,j);
-		ab = a;
 		health = 200;
 		isFacingLeft = l;
 	}
@@ -60,17 +59,17 @@ public class User extends MovingImage{
 	 * @param windowWidth- window width
 	 * @param windowHeight- window height
 	 */
-	public void move(int windowWidth, int windowHeight){
-		if(xDirection==LEFT)
+	public void move(int windowWidth, int windowHeight, int xDir, int yDir){
+		if(xDir==LEFT)
 		{
 			moveByAmount(-(int)(moveAmount/500.0 * windowWidth),0);
-		}else if(xDirection == RIGHT){
+		}else if(xDir == RIGHT){
 			moveByAmount((int)(moveAmount/500.0 * windowWidth),0);
 		}
 		
-		if(yDirection == UP){
+		if(yDir == UP){
 			moveByAmount(0,-(int)(moveAmount/500.0 * windowWidth));
-		}else if(yDirection == DOWN)
+		}else if(yDir == DOWN)
 		{
 			moveByAmount(0,(int)(moveAmount/500.0 * windowWidth));
 		}
@@ -136,6 +135,20 @@ public class User extends MovingImage{
 		xDirection=xDir;
 		yDirection=yDir;
 	}
+	public void draw(DrawingSurface s)
+	{
+		if(isFacingLeft)
+		{	
+			s.image(getImage(), (int)(x+width), (int)y, -(int)getWidth(), (int)getHeight());
+		}else
+		{
+			super.draw(s);
+		}
+	}
+	public String getName(){
+		return "";
+	}
+	
 	
 	
 }
