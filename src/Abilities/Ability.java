@@ -1,6 +1,7 @@
 package Abilities;
 
 import GUI.DrawingSurface;
+import User.MovingImage;
 
 /**
  * Dictates what an ability of a plane has to do
@@ -9,7 +10,6 @@ import GUI.DrawingSurface;
 public interface Ability {
 
 	void use();
-	void putOnCoolDown();
-	void checkCollision();
+	void checkCollision(MovingImage m);
 	void draw(DrawingSurface s);
 }

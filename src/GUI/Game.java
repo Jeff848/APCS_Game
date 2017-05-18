@@ -29,6 +29,7 @@ public class Game {
 				s.fill(255);
 				s.textAlign(s.CENTER);
 				s.textSize(12);
+				
 				if(s.isPressed(KeyEvent.VK_W))
 				{
 					if(s.getKeys().indexOf(KeyEvent.VK_W)>s.getKeys().indexOf(KeyEvent.VK_S))
@@ -51,23 +52,6 @@ public class Game {
 				else if(s.isPressed(KeyEvent.VK_D))
 				{
 					p1.move(s.width,s.height,1,0);
-				}
-				
-				if(s.isPressed(KeyEvent.VK_1))
-				{
-					
-				}
-				if(s.isPressed(KeyEvent.VK_2))
-				{
-					
-				}
-				if(s.isPressed(KeyEvent.VK_3))
-				{
-					
-				}
-				if(s.isPressed(KeyEvent.VK_4))
-				{
-					
 				}
 				
 				if(s.isPressed(KeyEvent.VK_UP))
@@ -93,26 +77,42 @@ public class Game {
 				{
 					p2.move(s.width,s.height,1,0);
 				}
-				
-				if(s.isPressed(KeyEvent.VK_7))
+
+				if(s.isPressed(KeyEvent.VK_1))
 				{
-					
+					p2.keyPressed(KeyEvent.VK_1);
 				}
-				if(s.isPressed(KeyEvent.VK_8))
+				else if(s.isPressed(KeyEvent.VK_2))
 				{
-					
+					p2.keyPressed(KeyEvent.VK_2);
 				}
-				if(s.isPressed(KeyEvent.VK_9))
+				else if(s.isPressed(KeyEvent.VK_3))
 				{
-					
+					p2.keyPressed(KeyEvent.VK_3);
+				}
+				else if(s.isPressed(KeyEvent.VK_4))
+				{
+					p2.keyPressed(KeyEvent.VK_4);
+				}
+				else if(s.isPressed(KeyEvent.VK_7))
+				{
+					p1.keyPressed(KeyEvent.VK_5);
+				}
+				else if(s.isPressed(KeyEvent.VK_8))
+				{
+					p1.keyPressed(KeyEvent.VK_6);
+				}
+				else if(s.isPressed(KeyEvent.VK_9))
+				{
+					p1.keyPressed(KeyEvent.VK_7);
 				}
 				if(s.isPressed(KeyEvent.VK_0))
 				{
-					
+					p1.keyPressed(KeyEvent.VK_8);
 				}
 				
-				p1.applyWindowLimits(s.width,s.height);
-				p2.applyWindowLimits(s.width,s.height);
+				p1.applyWindowLimits(s.width,s.height-(s.height/7));
+				p2.applyWindowLimits(s.width,s.height-(s.height/7));
 				p1.draw(s);
 				p2.draw(s);
 				s.line(s.width/2,0,s.width/2,s.height);
@@ -124,7 +124,9 @@ public class Game {
 				s.rect(s.width-200,0,200,10);
 				s.fill(0,255,0);
 				s.rect(s.width-200,0,p2.getHealth(),10);
-				
+				// starting to add ability boxes
+				//double bottomRestriction = s.height*7/8;
+				//s.rect((float)(s.width*(1/17)), (float)((s.height*7/8.0) + (s.height*(1.0/64.0))),  (float)(s.width/17.0), (float)((s.height*7/8.0) + (s.height*3/32.0)));
 			}
 	}
 	public void setGameUp(DrawingSurface s) {

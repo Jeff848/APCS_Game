@@ -19,10 +19,7 @@ public class Pause {
 			s.getKeys().clear();
 		}
 	}
-	public void mouseDraggedPausedState() {
+	public static void mousePressedPausedState(double x, double y) {
 		
-	}
-	public void mousePressedPausedState() {
-	
 	}
 }

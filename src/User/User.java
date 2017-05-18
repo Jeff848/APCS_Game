@@ -149,6 +149,10 @@ public class User extends MovingImage{
 		return "";
 	}
 	
+	public void keyPressed(int keyCode) {
+		System.out.println("Keypressed event is invoked in User object. This is not valid.");
+	}
+	
 	
 	
 }

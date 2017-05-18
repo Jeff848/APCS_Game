@@ -19,7 +19,7 @@ public class AerialRoyale {
 		JFrame window = (JFrame) canvas.getFrame();
 		window.setTitle("Aerial Royale");
 		window.setLocation(0,0);
-		window.setSize(1475, 1000);
+		window.setSize(drawing.displayWidth, drawing.displayHeight);
 		
 		window.setMinimumSize(new Dimension(100, 100));
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

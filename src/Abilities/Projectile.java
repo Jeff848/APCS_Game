@@ -29,13 +29,7 @@ public class Projectile extends MovingImage implements Ability{
 
 
 	@Override
-	public void checkCollision() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void putOnCoolDown() {
+	public void checkCollision(MovingImage m) {
 		// TODO Auto-generated method stub
 		
 	}

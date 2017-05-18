@@ -29,15 +29,17 @@ public class DrawingSurface extends PApplet {
 	public final int MENU_STATE = 3;
 	private int state;
 	private Game game;
+
 	
 	/**
 	 * Constructs a screen with two planes
 	 */
 	public DrawingSurface() {	
-		game = new Game(new Default(0,0,null,false), new Default(width,0,null,true));
+		game = new Game(new Default(0, 0, null, false), new Default(0, 0, null, true));
 		keys = new ArrayList<Integer>();
-		runSketch();
 		state=MENU_STATE;
+		
+		runSketch();
 	}
 	
 	// The statements in the setup() function 
@@ -46,7 +48,12 @@ public class DrawingSurface extends PApplet {
 	 * Uploads the images to the planes
 	 */
 	public void setup() {
+		
 		game.setGameUp(this);
+	}
+	
+	public void settings() {
+		size(displayWidth,displayHeight);
 	}
 	
 	// The statements in draw() are executed until the 
@@ -70,7 +77,11 @@ public class DrawingSurface extends PApplet {
 
 	
 	public void mousePressed() {
-		
+		if(state==MENU_STATE){
+			Menu.mousePressedMenuState(this,mouseX,mouseY);
+		} else if(state==PAUSE_STATE){
+			Pause.mousePressedPausedState(mouseX,mouseY);
+		}
 	}
 	
 	public void mouseDragged() {
