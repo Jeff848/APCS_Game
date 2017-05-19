@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import User.User;
 import processing.core.PImage;
@@ -9,6 +10,8 @@ public class Game {
 	private PImage img1, img2;
 	private User p1, p2;
 	private String p1Name, p2Name;
+	private ArrayList<Particle> particles;
+	private int i;
 	public Game(User p1, User p2)
 	{
 		img1 = null;
@@ -17,6 +20,9 @@ public class Game {
 		this.p2=p2;
 		p1Name = p1.getName();
 		p2Name = p2.getName();
+		particles = new ArrayList<Particle>();
+		
+		i=0;
 	}
 	public void drawGameState(DrawingSurface s) {
 			if(s.isPressed(KeyEvent.VK_SPACE))
@@ -25,11 +31,32 @@ public class Game {
 				s.getKeys().clear();
 			}else
 			{
-				s.background(255);   // Clear the screen with a white background
+				
+				if(i<2){
+					for(int i = 0; i<10; i++){
+						if(i%2==0)
+							particles.add(new Cloud(200,100,s,false, 255, 255, 255,true));
+						else
+							particles.add(new Cloud(200,100,s,true, 255, 255, 255,true));
+					}
+				} else if(i%4==0){
+					particles.add(new Cloud(200,100,s,false, 255, 255, 255,false));
+					particles.add(new Cloud(200,100,s,true, 255, 255, 255,false));
+				}
+			
+					
+				
+				
+				s.background(135,206,235);   // Clear the screen with a white background
 				s.fill(255);
 				s.textAlign(s.CENTER);
 				s.textSize(12);
-				
+				for(int i = 0; i<particles.size();i++){
+					particles.get(i).draw(s);
+					if(particles.get(i).getX()<=-particles.get(i).getWidth()-10||particles.get(i).getX()>=s.width+particles.get(i).getWidth()+10){
+						particles.remove(i);
+					}
+				}
 				if(s.isPressed(KeyEvent.VK_W))
 				{
 					if(s.getKeys().indexOf(KeyEvent.VK_W)>s.getKeys().indexOf(KeyEvent.VK_S))
@@ -116,6 +143,8 @@ public class Game {
 				p1.draw(s);
 				p2.draw(s);
 				s.line(s.width/2,0,s.width/2,s.height);
+				s.line(s.width/2+200,0, s.width/2+200, s.height);
+				s.line(s.width/2-200,0, s.width/2-200, s.height);
 				s.fill(255,0,0);
 				s.rect(0,0,200,10);
 				s.fill(0,255,0);
@@ -124,9 +153,11 @@ public class Game {
 				s.rect(s.width-200,0,200,10);
 				s.fill(0,255,0);
 				s.rect(s.width-200,0,p2.getHealth(),10);
+				
 				// starting to add ability boxes
 				//double bottomRestriction = s.height*7/8;
 				//s.rect((float)(s.width*(1/17)), (float)((s.height*7/8.0) + (s.height*(1.0/64.0))),  (float)(s.width/17.0), (float)((s.height*7/8.0) + (s.height*3/32.0)));
+				i++;
 			}
 	}
 	public void setGameUp(DrawingSurface s) {
