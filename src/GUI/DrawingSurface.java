@@ -30,16 +30,19 @@ public class DrawingSurface extends PApplet {
 	private int state;
 	private User user1, user2;
 	private Game game;
+	private Menu menu;
+	private Pause pause;
 	private PImage[] planes;
 	
 	/**
 	 * Constructs a screen with two planes
 	 */
 	public DrawingSurface() {	
-		game = new Game(new Default(0,0,null,false),new Default(0,0,null,true));
+		menu = new Menu();
+		game = new Game();
 		keys = new ArrayList<Integer>();
 		state=MENU_STATE;
-		
+		planes = new PImage[6];
 		runSketch();
 	}
 	
@@ -49,8 +52,9 @@ public class DrawingSurface extends PApplet {
 	 * Uploads the images to the planes
 	 */
 	public void setup() {
-		
-		game.setGameUp(this);
+		planes[0] = loadImage("GUI"+fileSeperator+"PlaneR.gif");
+		planes[1] = loadImage("GUI"+fileSeperator+"corgi.png");
+		game.setGameUp(new Default(0,0,null,false),new Default(0,0,null,true), planes[0], planes[1]);
 	}
 	
 	public void settings() {
@@ -66,7 +70,7 @@ public class DrawingSurface extends PApplet {
 	 */
 	public void draw() { 
 		if(state==MENU_STATE){
-			Menu.drawMenuState(this);
+			menu.drawMenuState(this);
 		} else if(state==GAME_STATE){
 			game.drawGameState(this);
 		} else if(state == PAUSE_STATE){
@@ -78,7 +82,7 @@ public class DrawingSurface extends PApplet {
 	
 	public void mousePressed() {
 		if(state==MENU_STATE){
-			Menu.mousePressedMenuState(this,mouseX,mouseY);
+			menu.mousePressedMenuState(this,mouseX,mouseY);
 		} else if(state==PAUSE_STATE){
 			Pause.mousePressedPausedState(mouseX,mouseY);
 		}

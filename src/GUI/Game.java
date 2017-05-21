@@ -3,6 +3,7 @@ package GUI;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+import Abilities.Missile;
 import User.User;
 import processing.core.PImage;
 
@@ -12,18 +13,15 @@ public class Game {
 	private String p1Name, p2Name;
 	private ArrayList<Particle> particles1, particles2;
 	private int background;
-	private PImage img1, img2;
-	public Game(User p1, User p2)
+	public Game()
 	{
-		img1 = null;
-		img2 = null;
-		this.p1=p1;
-		this.p2=p2;
-		p1Name = p1.getName();
-		p2Name = p2.getName();
+		this.p1=null;
+		this.p2=null;
+		p1Name = null;
+		p2Name = null;
 		particles1 = new ArrayList<Particle>();
 		particles2 = new ArrayList<Particle>();
-		background = 1;
+		background = 3;
 	}
 	public void drawGameState(DrawingSurface s) {
 			if(s.isPressed(KeyEvent.VK_SPACE))
@@ -78,17 +76,13 @@ public class Game {
 					} else if(s.frameCount%8==0){
 						particles1.add(new Cloud(200,100,s,false, 184,184,181,false));
 						particles1.add(new Cloud(200,100,s,true, 184,184,181,false));
-						
 					}
 					s.background(200,24,98); 
-					s.fill(178, 190, 181);
+					s.fill(254,91,53);
+					s.noStroke();
 					s.rect(0,s.height/2,s.width,s.height/2);
 					
-				}
-				
-						
-					
-					
+				}	
 					
 				for(int i = 0; i<particles2.size();i++){
 					if(particles2.get(i).getX()<=-particles2.get(i).getWidth()-50||particles2.get(i).getX()>=s.width+particles2.get(i).getWidth()+50){
@@ -154,6 +148,16 @@ public class Game {
 				if(s.isPressed(KeyEvent.VK_1))
 				{
 					p2.keyPressed(KeyEvent.VK_1);
+					ArrayList<Missile> m = p1.getArr();
+					for(int i = 1; i<m.size(); i++){	
+						m.get(i).move(p1);						
+						m.get(i).draw(s, p1);
+						if(p1.isHit(m.get(i), p2)){
+							System.out.println("hit");
+							p2.setHealth(-10);
+						}
+						
+					}
 				}
 				else if(s.isPressed(KeyEvent.VK_2))
 				{
@@ -184,12 +188,14 @@ public class Game {
 					p1.keyPressed(KeyEvent.VK_8);
 				}
 				
-				p1.applyWindowLimits(s.width,s.height-(s.height/7));
-				p2.applyWindowLimits(s.width,s.height-(s.height/7));
+				p1.applyWindowLimits(s.width-40,s.height-(s.height/7));
+				p2.applyWindowLimits(s.width+40,s.height-(s.height/7));
 				p1.draw(s);
 				p2.draw(s);
 				s.pushMatrix();
-				s.line(s.width/2,0,s.width/2,s.height);
+				s.noStroke();
+				s.fill(0,120,255,155);
+				s.rect(s.width/2-20,0,40,s.height);
 				//s.line(s.width/2+200,0, s.width/2+200, s.height);
 				//s.line(s.width/2-200,0, s.width/2-200, s.height);
 				s.fill(255);
@@ -209,13 +215,13 @@ public class Game {
 				//s.rect((float)(s.width*(1/17)), (float)((s.height*7/8.0) + (s.height*(1.0/64.0))),  (float)(s.width/17.0), (float)((s.height*7/8.0) + (s.height*3/32.0)));
 			}
 	}
-	public void setGameUp(DrawingSurface s) {
-		// TODO Auto-generated method stub
-		img1 = s.loadImage("GUI"+DrawingSurface.fileSeperator+p1Name+".gif");
-		img2 = s.loadImage("GUI"+DrawingSurface.fileSeperator+p2Name+".gif");
+	public void setGameUp(User p1, User p2, PImage img1, PImage img2) {
+		this.p1=p1;
+		this.p2=p2;
 		p1.setImage(img1);
 		p2.setImage(img2);
 	}
+	
 	
 	
 }

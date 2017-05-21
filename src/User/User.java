@@ -3,6 +3,7 @@ package User;
 import java.util.ArrayList;
 
 import Abilities.Ability;
+import Abilities.Missile;
 import GUI.DrawingSurface;
 import processing.core.PImage;
 
@@ -20,7 +21,7 @@ public class User extends MovingImage{
 	private int health;
 	private int xDirection;
 	private int yDirection;
-
+	private ArrayList<Missile> mm = new ArrayList<>();
 	
 	/** 
 	 * Makes a plane with the parameters
@@ -109,9 +110,11 @@ public class User extends MovingImage{
 	public boolean isFacingLeft(){
 		return isFacingLeft;
 	}
-	public void ab1() {
-		// TODO Auto-generated method stub
-		
+	public ArrayList<Missile> getArr(){
+		return mm;
+	}
+	public void ab1(DrawingSurface s){
+		mm.add(new Missile((int)(getX()+width), (int)(getY()+0.5*height), (int)width, (int)height));		
 	}
 	public void ab2() {
 		// TODO Auto-generated method stub
@@ -149,10 +152,31 @@ public class User extends MovingImage{
 		return "";
 	}
 	
-	public void keyPressed(int keyCode) {
-		System.out.println("Keypressed event is invoked in User object. This is not valid.");
+	public boolean isHit(Missile m, User u){
+		if(!isFacingLeft()){
+			if(m.getX()>=u.getX()&&m.getX()<=u.getMaxX()&&m.getY()>=u.getY()&&m.getY()<=u.getMaxY()){
+				return true;
+			}	
+			else{
+				return false;
+			}
+		}
+		else{
+			/*if(m.getX()<=getX()&&m.getY()>=getY()&&m.getY()<=getMaxY()){
+				return true;
+			}
+			else{
+				return false;
+			}*/
+			return false;
+		}
 	}
-	
-	
-	
+	public void setHealth(int x){
+		health += x;
+	}
+	public void keyPressed(int vk5) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
