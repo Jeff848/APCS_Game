@@ -11,7 +11,7 @@ public class Menu {
 		s.textAlign(s.CENTER);
 		s.textSize(24);
 		s.fill(255,255,255);
-		s.text("TEMP MENU",s.width/2,s.height/2);
+		// s.text("TEMP MENU",s.width/2,s.height/2);
 		s.fill(0,0,0);
 		if(isPointInside(s.width/2-100,s.height/2-25,200,50,s.mouseX,s.mouseY)){
 			s.fill(0,255,0);

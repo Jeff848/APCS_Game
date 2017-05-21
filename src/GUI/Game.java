@@ -7,11 +7,12 @@ import User.User;
 import processing.core.PImage;
 
 public class Game {
-	private PImage img1, img2;
+	
 	private User p1, p2;
 	private String p1Name, p2Name;
-	private ArrayList<Particle> particles;
-	private int i;
+	private ArrayList<Particle> particles1, particles2;
+	private int background;
+	private PImage img1, img2;
 	public Game(User p1, User p2)
 	{
 		img1 = null;
@@ -20,9 +21,9 @@ public class Game {
 		this.p2=p2;
 		p1Name = p1.getName();
 		p2Name = p2.getName();
-		particles = new ArrayList<Particle>();
-		
-		i=0;
+		particles1 = new ArrayList<Particle>();
+		particles2 = new ArrayList<Particle>();
+		background = 1;
 	}
 	public void drawGameState(DrawingSurface s) {
 			if(s.isPressed(KeyEvent.VK_SPACE))
@@ -31,32 +32,77 @@ public class Game {
 				s.getKeys().clear();
 			}else
 			{
-				
-				if(i<2){
-					for(int i = 0; i<10; i++){
-						if(i%2==0)
-							particles.add(new Cloud(200,100,s,false, 255, 255, 255,true));
-						else
-							particles.add(new Cloud(200,100,s,true, 255, 255, 255,true));
+				if(background == 0){
+					if(s.frameCount<2){
+						for(int i = 0; i<10; i++){
+							if(i%2==0)
+								particles1.add(new Cloud(200,100,s,false, 255, 255, 255,true));
+							else
+								particles1.add(new Cloud(200,100,s,true, 255, 255, 255,true));
+						}
+					} else if(s.frameCount%8==0){
+						particles1.add(new Cloud(200,100,s,false, 255, 255, 255,false));
+						particles1.add(new Cloud(200,100,s,true, 255, 255, 255,false));
 					}
-				} else if(i%4==0){
-					particles.add(new Cloud(200,100,s,false, 255, 255, 255,false));
-					particles.add(new Cloud(200,100,s,true, 255, 255, 255,false));
-				}
-			
+					s.background(135,206,235);   
+				}else if(background ==1){
+					if(s.frameCount<2){
+						for(int i = 0; i<10; i++){
+							if(i%2==0){
+								particles1.add(new Cloud(200,100,s,false, 184,184,181,true));
+							}else{
+								particles1.add(new Cloud(200,100,s,true, 184,184,181,true));
+							}
+						}
+					} else if(s.frameCount%8==0){
+						particles1.add(new Cloud(200,100,s,false, 184,184,181,false));
+						particles1.add(new Cloud(200,100,s,true, 184,184,181,false));
+						if(s.frameCount%64==0){
+							particles2.add(new Star(10,25,s,false,true));
+							particles2.add(new Star(10,25,s,true,true));
+						}
+					}
+					s.background(19,24,98);   
 					
-				
-				
-				s.background(135,206,235);   // Clear the screen with a white background
-				s.fill(255);
-				s.textAlign(s.CENTER);
-				s.textSize(12);
-				for(int i = 0; i<particles.size();i++){
-					particles.get(i).draw(s);
-					if(particles.get(i).getX()<=-particles.get(i).getWidth()-10||particles.get(i).getX()>=s.width+particles.get(i).getWidth()+10){
-						particles.remove(i);
+				}else {
+					
+					if(s.frameCount<2){
+						for(int i = 0; i<10; i++){
+							if(i%2==0){
+								particles1.add(new Cloud(200,100,s,false, 184,184,181,true));
+							}else{
+								particles1.add(new Cloud(200,100,s,true, 184,184,181,true));
+							}
+							
+						}
+					} else if(s.frameCount%8==0){
+						particles1.add(new Cloud(200,100,s,false, 184,184,181,false));
+						particles1.add(new Cloud(200,100,s,true, 184,184,181,false));
+						
 					}
+					s.background(200,24,98); 
+					s.fill(178, 190, 181);
+					s.rect(0,s.height/2,s.width,s.height/2);
+					
 				}
+				
+						
+					
+					
+					
+				for(int i = 0; i<particles2.size();i++){
+					if(particles2.get(i).getX()<=-particles2.get(i).getWidth()-50||particles2.get(i).getX()>=s.width+particles2.get(i).getWidth()+50){
+						particles2.remove(i);
+					}
+					particles2.get(i).draw(s);
+				}
+				for(int i = 0; i<particles1.size();i++){
+					if(particles1.get(i).getX()<=-particles1.get(i).getWidth()-50||particles1.get(i).getX()>=s.width+particles1.get(i).getWidth()+50){
+						particles1.remove(i);
+					}
+					particles1.get(i).draw(s);
+				}
+				
 				if(s.isPressed(KeyEvent.VK_W))
 				{
 					if(s.getKeys().indexOf(KeyEvent.VK_W)>s.getKeys().indexOf(KeyEvent.VK_S))
@@ -142,9 +188,13 @@ public class Game {
 				p2.applyWindowLimits(s.width,s.height-(s.height/7));
 				p1.draw(s);
 				p2.draw(s);
+				s.pushMatrix();
 				s.line(s.width/2,0,s.width/2,s.height);
-				s.line(s.width/2+200,0, s.width/2+200, s.height);
-				s.line(s.width/2-200,0, s.width/2-200, s.height);
+				//s.line(s.width/2+200,0, s.width/2+200, s.height);
+				//s.line(s.width/2-200,0, s.width/2-200, s.height);
+				s.fill(255);
+				s.textAlign(s.CENTER);
+				s.textSize(12);
 				s.fill(255,0,0);
 				s.rect(0,0,200,10);
 				s.fill(0,255,0);
@@ -153,11 +203,10 @@ public class Game {
 				s.rect(s.width-200,0,200,10);
 				s.fill(0,255,0);
 				s.rect(s.width-200,0,p2.getHealth(),10);
-				
+				s.popMatrix();
 				// starting to add ability boxes
 				//double bottomRestriction = s.height*7/8;
 				//s.rect((float)(s.width*(1/17)), (float)((s.height*7/8.0) + (s.height*(1.0/64.0))),  (float)(s.width/17.0), (float)((s.height*7/8.0) + (s.height*3/32.0)));
-				i++;
 			}
 	}
 	public void setGameUp(DrawingSurface s) {
@@ -167,5 +216,6 @@ public class Game {
 		p1.setImage(img1);
 		p2.setImage(img2);
 	}
+	
 	
 }

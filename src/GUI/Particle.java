@@ -37,10 +37,16 @@ public class Particle extends MovingImage{
 		s.noStroke();
 		move(s);
 		s.fill(255);
-		if(isPointingLeft){
-			s.rect((int)x, (int)y, (int)width+(int)Math.min(0, x-s.width/2), (int)height);
+		if(getDirection()){
+			if(x>=s.width/2+width){
+				s.rect((int)(x-width), (int)(y), (int)(width), (int)(height));
+			} else if(x>=s.width/2){
+				s.rect((int)Math.max(x, s.width/2), (int)(y), (int)(s.width/2-x), (int)(height));
+			} 
 		}else{
-			s.rect((int)x, (int)y, (int)Math.min(s.width/2-x, this.width), (int)height);
+			if(x<=s.width/2)
+				s.rect((int)Math.min(x, s.width/2), (int)(y), (int)Math.min(s.width/2-x, this.width), (int)(height));
+		
 		}
 		System.out.println(x+""+y);
 		s.stroke(0);
@@ -62,4 +68,5 @@ public class Particle extends MovingImage{
 	public int getVelocity() {
 		return velocity;
 	}
+	
 }

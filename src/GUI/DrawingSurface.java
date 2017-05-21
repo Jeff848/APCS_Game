@@ -28,14 +28,15 @@ public class DrawingSurface extends PApplet {
 	public final int PAUSE_STATE = 1;
 	public final int MENU_STATE = 3;
 	private int state;
+	private User user1, user2;
 	private Game game;
-
+	private PImage[] planes;
 	
 	/**
 	 * Constructs a screen with two planes
 	 */
 	public DrawingSurface() {	
-		game = new Game(new Default(0, 0, null, false), new Default(0, 0, null, true));
+		game = new Game(new Default(0,0,null,false),new Default(0,0,null,true));
 		keys = new ArrayList<Integer>();
 		state=MENU_STATE;
 		
@@ -64,7 +65,6 @@ public class DrawingSurface extends PApplet {
 	 * Updates the screen with the movements of the plane
 	 */
 	public void draw() { 
-		
 		if(state==MENU_STATE){
 			Menu.drawMenuState(this);
 		} else if(state==GAME_STATE){
@@ -109,6 +109,7 @@ public class DrawingSurface extends PApplet {
 	{
 		return keys;
 	}
+	
 }
 
 
