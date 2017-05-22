@@ -10,9 +10,9 @@ public class Default extends User{
 	Element fire, shield, zap, bomb;
 	private static final long serialVersionUID = 1L;
 	private static final long FireCoolDownPeriod = 10;
-	private static final long ZapCoolDownPeriod = 1;
-	private static final long BombCoolDownPeriod = 1;
-	private static final long ShieldCoolDownPeriod = 1;
+	private static final long ZapCoolDownPeriod = 10;
+	private static final long BombCoolDownPeriod = 10;
+	private static final long ShieldCoolDownPeriod = 10;
 	/**
 	 * 
 	 * @param x- x coord
@@ -56,26 +56,24 @@ public class Default extends User{
 	public void ab1(DrawingSurface s){
 		System.out.println(fire.getTimeRemaining());
 		if(fire.getTimeRemaining()<0.000000000000001){
-			super.ab1(s);
 			fire.keyPressed();
-			
-			
+			super.ab1(s);
 		}
 	}
 	public void ab2(DrawingSurface s){
-		if(zap.getTimeRemaining()<Math.E){
+		if(zap.getTimeRemaining()<0.000000000000001){
 			zap.keyPressed();
 			super.ab2(s);
 		}
 	}
 	public void ab3(DrawingSurface s){
-		if(bomb.getTimeRemaining()<Math.E){
+		if(bomb.getTimeRemaining()<0.000000000000001){
 			bomb.keyPressed();
 			super.ab3(s);
 		}
 	}
 	public void ab4(DrawingSurface s){
-		if(shield.getTimeRemaining()<Math.E){
+		if(shield.getTimeRemaining()<0.000000000000001){
 			shield.keyPressed();
 			super.ab4(s);
 		}

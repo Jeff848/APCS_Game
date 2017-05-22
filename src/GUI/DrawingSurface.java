@@ -55,7 +55,7 @@ public class DrawingSurface extends PApplet {
 	public void setup() {
 		planes[0] = loadImage("GUI"+fileSeperator+"HarryPotter.jpg");
 		planes[1] = loadImage("GUI"+fileSeperator+"corgi.png");
-		game.setGameUp(new Default(0,0,null,false),new Default(0,0,null,true), planes[0],planes[1],this);
+		
 	}
 	
 	public void settings() {
@@ -73,6 +73,7 @@ public class DrawingSurface extends PApplet {
 		if(state==MENU_STATE){
 			menu.drawMenuState(this);
 		} else if(state==GAME_STATE){
+			
 			game.drawGameState(this);
 		} else if(state == PAUSE_STATE){
 			Pause.drawPausedState(this);
@@ -113,6 +114,20 @@ public class DrawingSurface extends PApplet {
 	public ArrayList<Integer> getKeys()
 	{
 		return keys;
+	}
+	public Game getGame(){
+		return game;
+	}
+
+	public PImage getImage(User p2) {
+		if(p2.getName()=="PlaneR"){
+			if(p2.isFacingLeft())
+				return planes[0];
+			else
+				return planes[1];
+		}else{
+			return planes[0];
+		}
 	}
 	
 }

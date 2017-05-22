@@ -40,7 +40,7 @@ public class User extends MovingImage{
 	 */
 	public User(PImage image, int x, int y, int w, int h, Ability[] a, boolean l) {
 		super(image, x, y, w, h);
-		health = 200;
+		health = 500;
 		isFacingLeft = l;
 		xDirection = 0;
 		yDirection = 0;
@@ -57,7 +57,7 @@ public class User extends MovingImage{
 	 */
 	public User(int x, int y, int i, int j, Ability[] a, boolean l) {
 		super(x,y,i,j);
-		health = 200;
+		health = 500;
 		isFacingLeft = l;
 	}
 	/**
@@ -129,20 +129,32 @@ public class User extends MovingImage{
 	}
 	public void ab1(DrawingSurface s){
 		//System.out.println("arriba");
-		mm.add(new Missile((int)(getX()+width), (int)(getY()+0.5*height), (int)width, (int)height, s));		
+		if(!isFacingLeft)
+			mm.add(new Missile((int)(getX()+width), (int)(getY()+0.5*height), (int)width, (int)height, s));
+		else
+			mm.add(new Missile((int)(getX()), (int)(getY()+0.5*height), (int)width, (int)height, s));
 	}
 	public void ab2(DrawingSurface s) {
 		// TODO Auto-generated method stub
-		bb.add(new Bomb((int)(getX()+width), (int)(getY()+0.5*height), (int)width, (int)height, s));
+		if(!isFacingLeft)
+			bb.add(new Bomb((int)(getX()+width), (int)(getY()+0.5*height), (int)width, (int)height, s));
+		else 
+			bb.add(new Bomb((int)(getX()), (int)(getY()+0.5*height), (int)width, (int)height, s));
 	}
 	public void ab3(DrawingSurface s) {
-		zz.add(new Zap((int)(getX()+width), (int)(getY()+0.5*height), (int)width, (int)height, s));
+		if(!isFacingLeft)
+			zz.add(new Zap((int)(getX()+width), (int)(getY()+0.5*height), (int)width, (int)height, s));
+		else
+			zz.add(new Zap((int)(getX()), (int)(getY()+0.5*height), (int)width, (int)height, s));
 		// TODO Auto-generated method stub
 		
 	}
 	public void ab4(DrawingSurface s) {
 		// TODO Auto-generated method stub
-		ff.add(new Fire((int)(getX()+width), (int)(getY()+0.5*height), (int)width, (int)height, s));
+		if(!isFacingLeft)
+			ff.add(new Fire((int)(getX()+width), (int)(getY()+0.5*height), (int)width, (int)height, s));
+		else
+			ff.add(new Fire((int)(getX()), (int)(getY()+0.5*height), (int)width, (int)height, s));
 	}
 	public int getXDirection(){
 		return xDirection;
@@ -169,59 +181,42 @@ public class User extends MovingImage{
 	}
 	
 	public boolean isHit(Missile m, User u){
-		if(!isFacingLeft()){
+		
 			if(m.getX()>=u.getX()&&m.getX()<=u.getMaxX()&&m.getY()>=u.getY()&&m.getY()<=u.getMaxY()){
 				return true;
 			}	
 			else{
 				return false;
 			}
-		}
-		else{			
-			return false;
-		}
+		
 	}
 	public boolean isHitB(Bomb b, User u){
-		if(!isFacingLeft()){
+	
 			if(b.getX()>=u.getX()&&b.getX()<=u.getMaxX()&&b.getY()>=u.getY()&&b.getY()<=u.getMaxY()){
 				return true;
 			}	
 			else{
 				return false;
 			}
-		}
-		else{
-			
-			return false;
-		}
+	
 	}
 	public boolean isHitZ(Zap z, User u){
-		if(!isFacingLeft()){
+		
 			if(z.getX()>=u.getX()&&z.getX()<=u.getMaxX()&&z.getY()>=u.getY()&&z.getY()<=u.getMaxY()){
 				return true;
 			}	
 			else{
 				return false;
 			}
-		}
-		else{
-			
-			return false;
-		}
 	}
 	public boolean isHitF(Fire f, User u){
-		if(!isFacingLeft()){
+
 			if(f.getX()>=u.getX()&&f.getX()<=u.getMaxX()&&f.getY()>=u.getY()&&f.getY()<=u.getMaxY()){
 				return true;
 			}	
 			else{
 				return false;
 			}
-		}
-		else{
-			
-			return false;
-		}
 	}
 	public void setHealth(int x){
 		health += x;

@@ -12,7 +12,7 @@ public class Element {
 	
 	//private static int NUMBER_OF_IMAGES=8;
 	private long coolDownTime = 0;
-    private long timeWhenPressed = 0;
+    // private long timeWhenPressed = 0;
     private String name;
     int displayPosition;
     String fileName;
@@ -26,12 +26,6 @@ public class Element {
 		this.coolDownPeriod = coolDownPeriod;
 	}
 	public double getTimeRemaining() {
-		if ((System.currentTimeMillis()/1000.0) > coolDownTime) {
-			return 0;
-		}
-		else if(coolDownTime<timeWhenPressed){
-			return 0;
-		}
 		return (coolDownTime - (System.currentTimeMillis()/1000.0));
 	}
 	
@@ -41,16 +35,17 @@ public class Element {
 	public void setCoolDownTime(long coolDownTime) {
 		this.coolDownTime = coolDownTime;
 	}
+	/*
 	public long getTimeWhenPressed() {
 		return timeWhenPressed;
 	}
 	public void setTimeWhenPressed(long timeWhenPressed) {
 		this.timeWhenPressed = timeWhenPressed;
 	}
-	
+	*/
 	public void keyPressed() {
 
-	    	timeWhenPressed= System.currentTimeMillis()/1000;
+	    	long timeWhenPressed= System.currentTimeMillis()/1000;
 	    	if(coolDownTime < timeWhenPressed)
 	    	   coolDownTime = timeWhenPressed + coolDownPeriod;
 	}
@@ -101,12 +96,10 @@ public class Element {
 	
 	public void addPauseTime(long pauseStartTime)
 	{
-		long startTime = pauseStartTime/1000;
-		if (timeWhenPressed <= startTime && coolDownTime >= startTime) {
-			long time = (System.currentTimeMillis() - pauseStartTime)/1000;
-			coolDownTime+= time;
-			timeWhenPressed += time;
-		}
+		long time = (System.currentTimeMillis() - pauseStartTime)/1000;
+		coolDownTime+= time;
+		// timeWhenPressed += time;
+	
 	}
 	
 }

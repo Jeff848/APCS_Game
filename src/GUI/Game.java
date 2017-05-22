@@ -30,7 +30,7 @@ public class Game {
 		p2Name = p2.getName();
 		particles1 = new ArrayList<Particle>();
 		particles2 = new ArrayList<Particle>();
-		background = 2;
+		background = 1;
 	}
 	public Game() {
 		// TODO Auto-generated constructor stub
@@ -42,7 +42,7 @@ public class Game {
 		p2Name = "";
 		particles1 = new ArrayList<Particle>();
 		particles2 = new ArrayList<Particle>();
-		background = 2;
+		background = 1;
 	}
 	public void drawGameState(DrawingSurface s) {
 			if(s.isPressed(KeyEvent.VK_SPACE))
@@ -201,23 +201,31 @@ public class Game {
 					p2.ab4(s);
 				}
 				
-				p1.applyWindowLimits(s.width,s.height);
-				p2.applyWindowLimits(s.width,s.height);
+				p1.applyWindowLimits(s.width-40,s.height);
+				p2.applyWindowLimits(s.width+40,s.height);
 				p1.draw(s);
 				p2.draw(s);
-				s.line(s.width/2,0,s.width/2,s.height);
+				s.noStroke();
+				s.fill(0,120,255,155);
+				s.rect(s.width/2-20,0,40,s.height);
+				s.stroke(0);
 				s.fill(255,0,0);
-				s.rect(0,0,200,10);
+				s.rect(0,0,500,10);
 				if(p1.getHealth()>0){
 					s.fill(0,255,0);
 					s.rect(0,0,p1.getHealth(),10);
-					
+				} else{
+					//VICTORY SCREEN
+					s.setState(s.MENU_STATE);
 				}
 				s.fill(255,0,0);
-				s.rect(s.width-200,0,200,10);
+				s.rect(s.width-500,0,500,10);
 				if(p2.getHealth()>0){
 					s.fill(0,255,0);
-					s.rect(s.width-200,0,p2.getHealth(),10);
+					s.rect(s.width-p2.getHealth(),0,p2.getHealth(),10);
+				} else{
+					//VICTORY SCREEN
+					s.setState(s.MENU_STATE);
 				}
 				ArrayList<Missile> m = p1.getArr();
 				for(int i = 1; i<m.size(); i++){	
@@ -226,7 +234,6 @@ public class Game {
 					if(p1.isHit(m.get(i), p2)){
 						
 						p2.setHealth(-10);
-						
 						s.image(explosion, (float)m.get(i).getX(), (float)m.get(i).getY());
 						
 					}
@@ -288,8 +295,8 @@ public class Game {
 				
 				ArrayList<Bomb> b = p2.getBArr();
 				for(int i = 1; i<b.size(); i++){	
-					b.get(i).move(p1);						
-					b.get(i).draw(s, p1);
+					b.get(i).move(p2);						
+					b.get(i).draw(s, p2);
 					if(p2.isHitB(b.get(i), p1)){
 						
 						p1.setHealth(-20);
@@ -302,11 +309,11 @@ public class Game {
 				
 				ArrayList<Zap> z = p2.getZArr();
 				for(int i = 1; i<z.size(); i++){	
-					z.get(i).move(p1);						
-					z.get(i).draw(s, p1);
-					if(p1.isHitZ(z.get(i), p2)){
+					z.get(i).move(p2);						
+					z.get(i).draw(s, p2);
+					if(p2.isHitZ(z.get(i), p1)){
 	
-						p2.setHealth(-20);
+						p1.setHealth(-20);
 						PImage explosion = s.loadImage("GUI"+fileSeperator+"Explosion.jpg");
 						s.image(explosion, (float)z.get(i).getX(), (float)z.get(i).getY());					
 					}
@@ -315,16 +322,18 @@ public class Game {
 				
 				ArrayList<Fire> f = p2.getFArr();
 				for(int i = 1; i<f.size(); i++){	
-					f.get(i).move(p1);						
-					f.get(i).draw(s, p1);
-					if(p1.isHitF(f.get(i), p2)){
+					f.get(i).move(p2);						
+					f.get(i).draw(s, p2);
+					if(p2.isHitF(f.get(i), p1)){
 						
-						p2.setHealth(-20);
+						p1.setHealth(-20);
 						s.image(explosion, (float)f.get(i).getX(), (float)f.get(i).getY());					
 					}
 					
 				}
+				
 			}
+			
 	}
 
 	public void setGameUp(User default1, User default2, PImage i1, PImage i2, DrawingSurface s) {
@@ -339,5 +348,13 @@ public class Game {
 		explosion = s.loadImage("GUI"+DrawingSurface.fileSeperator+"explosion.jpg");
 		
 	}
-	
+	public User getPlane1(){
+		return p1;
+	}
+	public User getPlane2(){
+		return p2;
+	}
+	public void setBackground(int i){
+		background = i;
+	}
 }
