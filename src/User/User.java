@@ -3,7 +3,10 @@ package User;
 import java.util.ArrayList;
 
 import Abilities.Ability;
+import Abilities.Bomb;
+import Abilities.Fire;
 import Abilities.Missile;
+import Abilities.Zap;
 import GUI.DrawingSurface;
 import processing.core.PImage;
 
@@ -22,7 +25,9 @@ public class User extends MovingImage{
 	private int xDirection;
 	private int yDirection;
 	private ArrayList<Missile> mm = new ArrayList<>();
-	
+	private ArrayList<Bomb> bb = new ArrayList<>();
+	private ArrayList<Zap> zz = new ArrayList<>();
+	private ArrayList<Fire> ff = new ArrayList<>();
 	/** 
 	 * Makes a plane with the parameters
 	 * @param image- PImage of plane
@@ -113,20 +118,31 @@ public class User extends MovingImage{
 	public ArrayList<Missile> getArr(){
 		return mm;
 	}
+	public ArrayList<Bomb> getBArr(){
+		return bb;
+	}
+	public ArrayList<Zap> getZArr(){
+		return zz;
+	}
+	public ArrayList<Fire> getFArr(){
+		return ff;
+	}
 	public void ab1(DrawingSurface s){
-		mm.add(new Missile((int)(getX()+width), (int)(getY()+0.5*height), (int)width, (int)height));		
+		//System.out.println("arriba");
+		mm.add(new Missile((int)(getX()+width), (int)(getY()+0.5*height), (int)width, (int)height, s));		
 	}
-	public void ab2() {
+	public void ab2(DrawingSurface s) {
+		// TODO Auto-generated method stub
+		bb.add(new Bomb((int)(getX()+width), (int)(getY()+0.5*height), (int)width, (int)height, s));
+	}
+	public void ab3(DrawingSurface s) {
+		zz.add(new Zap((int)(getX()+width), (int)(getY()+0.5*height), (int)width, (int)height, s));
 		// TODO Auto-generated method stub
 		
 	}
-	public void ab3() {
+	public void ab4(DrawingSurface s) {
 		// TODO Auto-generated method stub
-		
-	}
-	public void ab4() {
-		// TODO Auto-generated method stub
-		
+		ff.add(new Fire((int)(getX()+width), (int)(getY()+0.5*height), (int)width, (int)height, s));
 	}
 	public int getXDirection(){
 		return xDirection;
@@ -161,19 +177,59 @@ public class User extends MovingImage{
 				return false;
 			}
 		}
-		else{
-			/*if(m.getX()<=getX()&&m.getY()>=getY()&&m.getY()<=getMaxY()){
+		else{			
+			return false;
+		}
+	}
+	public boolean isHitB(Bomb b, User u){
+		if(!isFacingLeft()){
+			if(b.getX()>=u.getX()&&b.getX()<=u.getMaxX()&&b.getY()>=u.getY()&&b.getY()<=u.getMaxY()){
 				return true;
-			}
+			}	
 			else{
 				return false;
-			}*/
+			}
+		}
+		else{
+			
+			return false;
+		}
+	}
+	public boolean isHitZ(Zap z, User u){
+		if(!isFacingLeft()){
+			if(z.getX()>=u.getX()&&z.getX()<=u.getMaxX()&&z.getY()>=u.getY()&&z.getY()<=u.getMaxY()){
+				return true;
+			}	
+			else{
+				return false;
+			}
+		}
+		else{
+			
+			return false;
+		}
+	}
+	public boolean isHitF(Fire f, User u){
+		if(!isFacingLeft()){
+			if(f.getX()>=u.getX()&&f.getX()<=u.getMaxX()&&f.getY()>=u.getY()&&f.getY()<=u.getMaxY()){
+				return true;
+			}	
+			else{
+				return false;
+			}
+		}
+		else{
+			
 			return false;
 		}
 	}
 	public void setHealth(int x){
 		health += x;
 	}
+	public void addPauseTime(long startPauseTime)
+	{
+		System.out.println("AddPauseTime event is invoked in User object. This is not valid.");
+	}	
 	public void keyPressed(int vk5) {
 		// TODO Auto-generated method stub
 		

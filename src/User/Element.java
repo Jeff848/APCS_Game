@@ -10,28 +10,29 @@ import processing.core.PShapeSVG.Font;
 public class Element {
 // updated by: Yash
 	
-	private static int NUMBER_OF_IMAGES=8;
+	//private static int NUMBER_OF_IMAGES=8;
 	private long coolDownTime = 0;
     private long timeWhenPressed = 0;
     private String name;
     int displayPosition;
     String fileName;
     private PImage image = null;
-    private static PImage[] numCountDown = new PImage[16];
-    public Element(String name, int displayPosition, String fileName){
+    private long coolDownPeriod;
+  //  private static PImage[] numCountDown = new PImage[16];
+    public Element(String name, int displayPosition, String fileName, long coolDownPeriod){
 		this.name = name;
 		this.displayPosition = displayPosition;
 		this.fileName = fileName;
-		
+		this.coolDownPeriod = coolDownPeriod;
 	}
-	public int getTimeRemaining() {
-		if ((System.currentTimeMillis()/1000) > coolDownTime) {
+	public double getTimeRemaining() {
+		if ((System.currentTimeMillis()/1000.0) > coolDownTime) {
 			return 0;
 		}
 		else if(coolDownTime<timeWhenPressed){
 			return 0;
 		}
-		return (int)(coolDownTime - (System.currentTimeMillis()/1000));
+		return (coolDownTime - (System.currentTimeMillis()/1000.0));
 	}
 	
 	public long getCoolDownTime() {
@@ -51,7 +52,7 @@ public class Element {
 
 	    	timeWhenPressed= System.currentTimeMillis()/1000;
 	    	if(coolDownTime < timeWhenPressed)
-	    	   coolDownTime = timeWhenPressed + 15;
+	    	   coolDownTime = timeWhenPressed + coolDownPeriod;
 	}
 	
 	public void draw(DrawingSurface s)
@@ -78,7 +79,7 @@ public class Element {
 		
 		
 
-		int remainingTime = getTimeRemaining();
+		int remainingTime = (int)getTimeRemaining();
 		if(remainingTime > 0){
 			s.fill(0,0,0,155);
 			s.rectMode(0);
@@ -109,8 +110,6 @@ public class Element {
 	}
 	
 }
-
-
 
 
 

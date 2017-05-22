@@ -9,6 +9,10 @@ public class Default extends User{
 
 	Element fire, shield, zap, bomb;
 	private static final long serialVersionUID = 1L;
+	private static final long FireCoolDownPeriod = 10;
+	private static final long ZapCoolDownPeriod = 1;
+	private static final long BombCoolDownPeriod = 1;
+	private static final long ShieldCoolDownPeriod = 1;
 	/**
 	 * 
 	 * @param x- x coord
@@ -19,16 +23,16 @@ public class Default extends User{
 	public Default(int x, int y, Ability[] a, boolean l) {
 		super(x, y, 128, 64, a, l);
 		if (isFacingLeft()) {
-			fire = new Element("fire", 2, "Fire.png");
-			zap = new Element("zap", 4, "Zap.png");
-			bomb = new Element("bomb",6, "Bomb.png");
-			shield = new Element("shield", 8, "Shield.png");
+			fire = new Element("fire", 10, "Fire.png",FireCoolDownPeriod);
+			zap = new Element("zap", 12, "Zap.png",ZapCoolDownPeriod);
+			bomb = new Element("bomb",14, "Bomb.png",BombCoolDownPeriod);
+			shield = new Element("shield", 16, "Shield.png",ShieldCoolDownPeriod);
 		}
 		else {
-			fire = new Element("fire", 10, "Fire.png");
-			zap = new Element("zap", 12, "Zap.png");
-			bomb = new Element("bomb",14, "Bomb.png" );
-			shield = new Element("shield", 16, "Shield.png");
+			fire = new Element("fire", 2, "Fire.png",FireCoolDownPeriod);
+			zap = new Element("zap", 4, "Zap.png",ZapCoolDownPeriod);
+			bomb = new Element("bomb",6, "Bomb.png",BombCoolDownPeriod );
+			shield = new Element("shield", 8, "Shield.png",ShieldCoolDownPeriod);
 		}
 	}
 	public String getName()
@@ -38,23 +42,7 @@ public class Default extends User{
 	
 	public void keyPressed(int key) {
 
-//	    int key = e.getKeyCode();
-
-	    if (key == KeyEvent.VK_1 || key==KeyEvent.VK_5) {
-	    	 fire.keyPressed();
-	    }
-
-	    if (key == KeyEvent.VK_2 || key==KeyEvent.VK_6) {
-	    	zap.keyPressed();
-	    }
-
-	    if (key == KeyEvent.VK_3 || key==KeyEvent.VK_7) {
-	    	bomb.keyPressed();
-	    }
-
-	    if (key == KeyEvent.VK_4 || key==KeyEvent.VK_8) {
-	    	shield.keyPressed();
-	    }
+	    
 	}
 	public void draw(DrawingSurface s)
 	{
@@ -64,6 +52,41 @@ public class Default extends User{
 		bomb.draw(s);
 		shield.draw(s);
 		
+	}
+	public void ab1(DrawingSurface s){
+		System.out.println(fire.getTimeRemaining());
+		if(fire.getTimeRemaining()<0.000000000000001){
+			super.ab1(s);
+			fire.keyPressed();
+			
+			
+		}
+	}
+	public void ab2(DrawingSurface s){
+		if(zap.getTimeRemaining()<Math.E){
+			zap.keyPressed();
+			super.ab2(s);
+		}
+	}
+	public void ab3(DrawingSurface s){
+		if(bomb.getTimeRemaining()<Math.E){
+			bomb.keyPressed();
+			super.ab3(s);
+		}
+	}
+	public void ab4(DrawingSurface s){
+		if(shield.getTimeRemaining()<Math.E){
+			shield.keyPressed();
+			super.ab4(s);
+		}
+	}
+
+	public void addPauseTime(long startPauseTime)
+	{
+		fire.addPauseTime(startPauseTime);
+		zap.addPauseTime(startPauseTime);
+		bomb.addPauseTime(startPauseTime);
+		shield.addPauseTime(startPauseTime);
 	}
 
 	

@@ -6,6 +6,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import User.Default;
+import User.HarryPotter;
 import User.MovingImage;
 import User.User;
 import Abilities.Ability;
@@ -52,9 +53,9 @@ public class DrawingSurface extends PApplet {
 	 * Uploads the images to the planes
 	 */
 	public void setup() {
-		planes[0] = loadImage("GUI"+fileSeperator+"PlaneR.gif");
+		planes[0] = loadImage("GUI"+fileSeperator+"HarryPotter.jpg");
 		planes[1] = loadImage("GUI"+fileSeperator+"corgi.png");
-		game.setGameUp(new Default(0,0,null,false),new Default(0,0,null,true), planes[0], planes[1]);
+		game.setGameUp(new Default(0,0,null,false),new Default(0,0,null,true), planes[0],planes[1],this);
 	}
 	
 	public void settings() {
@@ -115,13 +116,3 @@ public class DrawingSurface extends PApplet {
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-

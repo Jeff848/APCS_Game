@@ -7,15 +7,15 @@ import User.User;
 import processing.core.PImage;
 
 public class Missile extends MovingImage{
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;	
 	public static final String fileSeperator = System.getProperty("file.separator");
 	public static final String lineSeparator = System.getProperty("line.separator");
 	private double velocity;
-	public Missile(int x, int y, int width, int height) {	
+	private PImage img;
+	public Missile(int x, int y, int width, int height, DrawingSurface s) {	
 		super(x, y, width, height);
-		velocity = 300;
-		
+		velocity = 1;
+		img = s.loadImage("GUI"+fileSeperator+"Missile.jpg");
 	}
 	public void move(User d){			
 		//this.setX(d.getX());
@@ -34,18 +34,13 @@ public class Missile extends MovingImage{
 			//}
 		}		
 	}
-	
 	public void draw(DrawingSurface s, User u){		
 		s.pushMatrix();
 		s.noStroke();
-		s.image(s.loadImage("GUI"+fileSeperator+"Missile.jpg"), (int)(x), (int)(y));
+		s.image(img, (int)(x), (int)(y));
 		move(u);
 		s.fill(255);
 		s.stroke(0);
-		s.popMatrix();
-		
-		
-	}
-	
-	
+		s.popMatrix();		
+	}	
 }
