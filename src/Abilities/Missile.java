@@ -12,11 +12,12 @@ public class Missile extends MovingImage{
 	public static final String lineSeparator = System.getProperty("line.separator");
 	private double velocity;
 	private PImage img;
-	public Missile(int x, int y, int width, int height, DrawingSurface s) {	
+	public Missile(int x, int y, int width, int height, PImage img1) {	
 		super(x, y, width, height);
-		velocity = 1;
-		img = s.loadImage("GUI"+fileSeperator+"Missile.jpg");
+		velocity = 10;
+		img = img1;
 	}
+
 	public void move(User d){			
 		//this.setX(d.getX());
 		if(!d.isFacingLeft()){	
@@ -37,7 +38,7 @@ public class Missile extends MovingImage{
 	public void draw(DrawingSurface s, User u){		
 		s.pushMatrix();
 		s.noStroke();
-		s.image(img, (int)(x), (int)(y));
+		s.image(img, (int)(x), (int)(y), 100, 50);
 		move(u);
 		s.fill(255);
 		s.stroke(0);

@@ -7,12 +7,12 @@ import processing.core.PImage;
 
 public class Default extends User{
 
-	Element fire, shield, zap, bomb;
+	Element fire, missile, zap, bomb;
 	private static final long serialVersionUID = 1L;
 	private static final long FireCoolDownPeriod = 10;
 	private static final long ZapCoolDownPeriod = 10;
 	private static final long BombCoolDownPeriod = 10;
-	private static final long ShieldCoolDownPeriod = 10;
+	private static final long MissileCoolDownPeriod = 10;
 	/**
 	 * 
 	 * @param x- x coord
@@ -23,16 +23,16 @@ public class Default extends User{
 	public Default(int x, int y, Ability[] a, boolean l) {
 		super(x, y, 128, 64, a, l);
 		if (isFacingLeft()) {
-			fire = new Element("fire", 10, "Fire.png",FireCoolDownPeriod);
-			zap = new Element("zap", 12, "Zap.png",ZapCoolDownPeriod);
-			bomb = new Element("bomb",14, "Bomb.png",BombCoolDownPeriod);
-			shield = new Element("shield", 16, "Shield.png",ShieldCoolDownPeriod);
+			missile = new Element("missile", 10, "Missile.png",MissileCoolDownPeriod);
+			bomb = new Element("bomb", 12, "Bomb.png",BombCoolDownPeriod);
+			zap = new Element("zap",14, "Zap.png",ZapCoolDownPeriod);
+			fire = new Element("fire", 16, "Fire.png",FireCoolDownPeriod);
 		}
 		else {
-			fire = new Element("fire", 2, "Fire.png",FireCoolDownPeriod);
-			zap = new Element("zap", 4, "Zap.png",ZapCoolDownPeriod);
-			bomb = new Element("bomb",6, "Bomb.png",BombCoolDownPeriod );
-			shield = new Element("shield", 8, "Shield.png",ShieldCoolDownPeriod);
+			missile = new Element("missile", 2, "Missile.png",MissileCoolDownPeriod);
+			bomb = new Element("bomb", 4, "Bomb.png",BombCoolDownPeriod);
+			zap = new Element("zap",6, "Zap.png",ZapCoolDownPeriod );
+			fire = new Element("fire", 8, "Fire.png",FireCoolDownPeriod);
 		}
 	}
 	public String getName()
@@ -50,32 +50,31 @@ public class Default extends User{
 		fire.draw(s);
 		zap.draw(s);
 		bomb.draw(s);
-		shield.draw(s);
+		missile.draw(s);
 		
 	}
-	public void ab1(DrawingSurface s){
-		System.out.println(fire.getTimeRemaining());
-		if(fire.getTimeRemaining()<0.000000000000001){
-			fire.keyPressed();
-			super.ab1(s);
+	public void ab1(PImage img1, PImage img2){
+		if(missile.getTimeRemaining()<0.000000000000001){
+			missile.keyPressed();
+			super.ab1(img1,img2);
 		}
 	}
-	public void ab2(DrawingSurface s){
-		if(zap.getTimeRemaining()<0.000000000000001){
-			zap.keyPressed();
-			super.ab2(s);
-		}
-	}
-	public void ab3(DrawingSurface s){
+	public void ab2(PImage img1){
 		if(bomb.getTimeRemaining()<0.000000000000001){
 			bomb.keyPressed();
-			super.ab3(s);
+			super.ab2(img1);
 		}
 	}
-	public void ab4(DrawingSurface s){
-		if(shield.getTimeRemaining()<0.000000000000001){
-			shield.keyPressed();
-			super.ab4(s);
+	public void ab3(PImage img1, PImage img2){
+		if(zap.getTimeRemaining()<0.000000000000001){
+			zap.keyPressed();
+			super.ab3(img1,img2);
+		}
+	}
+	public void ab4(PImage img1){
+		if(fire.getTimeRemaining()<0.000000000000001){
+			fire.keyPressed();
+			super.ab4(img1);
 		}
 	}
 
@@ -84,7 +83,7 @@ public class Default extends User{
 		fire.addPauseTime(startPauseTime);
 		zap.addPauseTime(startPauseTime);
 		bomb.addPauseTime(startPauseTime);
-		shield.addPauseTime(startPauseTime);
+		missile.addPauseTime(startPauseTime);
 	}
 
 	

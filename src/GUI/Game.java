@@ -14,35 +14,30 @@ import processing.core.PImage;
 public class Game {
 	private PImage img1, img2;
 	private User p1, p2;
-	private String p1Name, p2Name;
 	public static final String fileSeperator = System.getProperty("file.separator");
 	private ArrayList<Particle> particles1, particles2;
 	private int background;
 	PImage explosion;
 	
-	public Game(User p1, User p2)
-	{
+	public Game(User p1, User p2){
 		img1 = null;
 		img2 = null;
 		this.p1=p1;
 		this.p2=p2;
-		p1Name = p1.getName();
-		p2Name = p2.getName();
+
 		particles1 = new ArrayList<Particle>();
 		particles2 = new ArrayList<Particle>();
 		background = 1;
 	}
 	public Game() {
-		// TODO Auto-generated constructor stub
 		img1 = null;
 		img2 = null;
 		this.p1=null;
 		this.p2=null;
-		p1Name = "";
-		p2Name = "";
+
 		particles1 = new ArrayList<Particle>();
 		particles2 = new ArrayList<Particle>();
-		background = 1;
+		background = 0;
 	}
 	public void drawGameState(DrawingSurface s) {
 			if(s.isPressed(KeyEvent.VK_SPACE))
@@ -143,20 +138,19 @@ public class Game {
 				
 				if(s.isPressed(KeyEvent.VK_1))
 				{
-					p1.ab1(s);
-					
+					p1.ab1(s.getProjectiles()[0],s.getProjectiles()[1]);
 				}
 				if(s.isPressed(KeyEvent.VK_2))
 				{
-					p1.ab2(s);
+					p1.ab2(s.getProjectiles()[4]);
 				}
 				if(s.isPressed(KeyEvent.VK_3))
 				{
-					p1.ab3(s);
+					p1.ab3(s.getProjectiles()[2],s.getProjectiles()[3]);
 				}
 				if(s.isPressed(KeyEvent.VK_4))
 				{
-					p1.ab4(s);
+					p1.ab4(s.getProjectiles()[5]);
 				}
 				
 				if(s.isPressed(KeyEvent.VK_UP))
@@ -185,20 +179,20 @@ public class Game {
 				
 				if(s.isPressed(KeyEvent.VK_7))
 				{
-					p2.ab1(s);
+					p2.ab1(s.getProjectiles()[0],s.getProjectiles()[1]);
 					
 				}
 				if(s.isPressed(KeyEvent.VK_8))
 				{
-					p2.ab2(s);
+					p2.ab2(s.getProjectiles()[4]);
 				}
 				if(s.isPressed(KeyEvent.VK_9))
 				{
-					p2.ab3(s);
+					p2.ab3(s.getProjectiles()[2],s.getProjectiles()[3]);
 				}
 				if(s.isPressed(KeyEvent.VK_0))
 				{
-					p2.ab4(s);
+					p2.ab4(s.getProjectiles()[5]);
 				}
 				
 				p1.applyWindowLimits(s.width-40,s.height);
@@ -228,106 +222,117 @@ public class Game {
 					s.setState(s.MENU_STATE);
 				}
 				ArrayList<Missile> m = p1.getArr();
-				for(int i = 1; i<m.size(); i++){	
+				for(int i = 0; i<m.size(); i++){	
 					m.get(i).move(p1);						
 					m.get(i).draw(s, p1);
 					if(p1.isHit(m.get(i), p2)){
 						
 						p2.setHealth(-10);
 						s.image(explosion, (float)m.get(i).getX(), (float)m.get(i).getY());
-						
+						m.remove(i);
+						i--;
 					}
 					
 				}
 				
 				ArrayList<Bomb> b1 = p1.getBArr();
-				for(int i = 1; i<b1.size(); i++){	
+				for(int i = 0; i<b1.size(); i++){	
 					b1.get(i).move(p1);						
 					b1.get(i).draw(s, p1);
-					if(p1.isHitB(b1.get(i), p2)){
-						
+					if(p1.isHitB(b1.get(i), p2)){						
 						p2.setHealth(-20);
-						PImage explosion = s.loadImage("GUI"+fileSeperator+"Explosion.jpg");
+						PImage explosion = s.loadImage("GUI"+fileSeperator+"explosion.png");
 						s.image(explosion, (float)b1.get(i).getX(), (float)b1.get(i).getY());
-						
+						b1.remove(i);
+						i--;
 					}
 					
 				}
 				
 				ArrayList<Zap> z1 = p1.getZArr();
-				for(int i = 1; i<z1.size(); i++){	
+				for(int i = 0; i<z1.size(); i++){	
 					z1.get(i).move(p1);						
 					z1.get(i).draw(s, p1);
 					if(p1.isHitZ(z1.get(i), p2)){
 	
 						p2.setHealth(-20);
-						PImage explosion = s.loadImage("GUI"+fileSeperator+"Explosion.jpg");
+						PImage explosion = s.loadImage("GUI"+fileSeperator+"explosion.png");
 						s.image(explosion, (float)z1.get(i).getX(), (float)z1.get(i).getY());					
+						z1.remove(i);
+						i--;
 					}
 					
 				}
 				
 				ArrayList<Fire> f1 = p1.getFArr();
-				for(int i = 1; i<f1.size(); i++){	
+				for(int i = 0; i<f1.size(); i++){	
 					f1.get(i).move(p1);						
 					f1.get(i).draw(s, p1);
 					if(p1.isHitF(f1.get(i), p2)){
 					
 						p2.setHealth(-20);
-						PImage explosion = s.loadImage("GUI"+fileSeperator+"Explosion.jpg");
+						PImage explosion = s.loadImage("GUI"+fileSeperator+"explosion.png");
 						s.image(explosion, (float)f1.get(i).getX(), (float)f1.get(i).getY());					
+						f1.remove(i);
+						i--;
 					}
 					
 				}
 				ArrayList<Missile> m1 = p2.getArr();
-				for(int i = 1; i<m1.size(); i++){	
+				for(int i = 0; i<m1.size(); i++){	
 					m1.get(i).move(p2);						
 					m1.get(i).draw(s, p2);
 					if(p2.isHit(m1.get(i), p1)){
 						p1.setHealth(-10);
-						PImage explosion = s.loadImage("GUI"+fileSeperator+"Explosion.jpg");
+						PImage explosion = s.loadImage("GUI"+fileSeperator+"explosion.png");
 						s.image(explosion, (float)m1.get(i).getX(), (float)m1.get(i).getY());
 						
-						
+						m1.remove(i);
+						i--;
 					}
 					
 				}
 				
 				ArrayList<Bomb> b = p2.getBArr();
-				for(int i = 1; i<b.size(); i++){	
+				for(int i = 0; i<b.size(); i++){	
 					b.get(i).move(p2);						
 					b.get(i).draw(s, p2);
 					if(p2.isHitB(b.get(i), p1)){
 						
 						p1.setHealth(-20);
-						PImage explosion = s.loadImage("GUI"+fileSeperator+"Explosion.jpg");
+						PImage explosion = s.loadImage("GUI"+fileSeperator+"explosion.png");
 						s.image(explosion, (float)b.get(i).getX(), (float)b.get(i).getY());
-						
+						b.remove(i);
+						i--;
 					}
 					
 				}
 				
 				ArrayList<Zap> z = p2.getZArr();
-				for(int i = 1; i<z.size(); i++){	
+				for(int i = 0; i<z.size(); i++){	
 					z.get(i).move(p2);						
 					z.get(i).draw(s, p2);
 					if(p2.isHitZ(z.get(i), p1)){
 	
 						p1.setHealth(-20);
-						PImage explosion = s.loadImage("GUI"+fileSeperator+"Explosion.jpg");
+						PImage explosion = s.loadImage("GUI"+fileSeperator+"explosion.png");
 						s.image(explosion, (float)z.get(i).getX(), (float)z.get(i).getY());					
+						z.remove(i);
+						i--;
 					}
 					
 				}
 				
 				ArrayList<Fire> f = p2.getFArr();
-				for(int i = 1; i<f.size(); i++){	
+				for(int i = 0; i<f.size(); i++){	
 					f.get(i).move(p2);						
 					f.get(i).draw(s, p2);
 					if(p2.isHitF(f.get(i), p1)){
 						
 						p1.setHealth(-20);
 						s.image(explosion, (float)f.get(i).getX(), (float)f.get(i).getY());					
+						f.remove(i);
+						i--;
 					}
 					
 				}
@@ -345,7 +350,7 @@ public class Game {
 		p1.setImage(img1);
 		p2.setImage(img2);
 		
-		explosion = s.loadImage("GUI"+DrawingSurface.fileSeperator+"explosion.jpg");
+		explosion = s.loadImage("GUI"+DrawingSurface.fileSeperator+"explosion.png");
 		
 	}
 	public User getPlane1(){

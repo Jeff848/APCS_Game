@@ -34,16 +34,18 @@ public class DrawingSurface extends PApplet {
 	private Menu menu;
 	private Pause pause;
 	private PImage[] planes;
+	private PImage[] projectiles;
 	
 	/**
 	 * Constructs a screen with two planes
 	 */
-	public DrawingSurface() {	
+	public DrawingSurface(){	
 		menu = new Menu();
 		game = new Game();
 		keys = new ArrayList<Integer>();
 		state=MENU_STATE;
 		planes = new PImage[6];
+		projectiles = new PImage[6];
 		runSketch();
 	}
 	
@@ -53,9 +55,19 @@ public class DrawingSurface extends PApplet {
 	 * Uploads the images to the planes
 	 */
 	public void setup() {
-		planes[0] = loadImage("GUI"+fileSeperator+"HarryPotter.jpg");
+		planes[0] = loadImage("GUI"+fileSeperator+"PlaneR.gif");
 		planes[1] = loadImage("GUI"+fileSeperator+"corgi.png");
-		
+		planes[2] = loadImage("GUI"+fileSeperator+"HarryPotter.png");
+		planes[3] = loadImage("GUI"+fileSeperator+"PlaneR.gif");
+		planes[4] = loadImage("GUI"+fileSeperator+"corgi.png");
+		planes[5] = loadImage("GUI"+fileSeperator+"HarryPotter.png");
+		projectiles[0] = loadImage("GUI"+fileSeperator+"Missile.png");
+		projectiles[1] = loadImage("GUI"+fileSeperator+"MissileLeft.png");
+		projectiles[2] = loadImage("GUI"+fileSeperator+"Zap.png");
+		projectiles[3] = loadImage("GUI"+fileSeperator+"ZapLeft.png");
+		projectiles[4] = loadImage("GUI"+fileSeperator+"Bomb.png");
+		projectiles[5] = loadImage("GUI"+fileSeperator+"Fire.png");
+		menu.setMenuUp(planes);
 	}
 	
 	public void settings() {
@@ -86,7 +98,7 @@ public class DrawingSurface extends PApplet {
 		if(state==MENU_STATE){
 			menu.mousePressedMenuState(this,mouseX,mouseY);
 		} else if(state==PAUSE_STATE){
-			Pause.mousePressedPausedState(mouseX,mouseY);
+			Pause.mousePressedPausedState(this,mouseX,mouseY);
 		}
 	}
 	
@@ -119,15 +131,8 @@ public class DrawingSurface extends PApplet {
 		return game;
 	}
 
-	public PImage getImage(User p2) {
-		if(p2.getName()=="PlaneR"){
-			if(p2.isFacingLeft())
-				return planes[0];
-			else
-				return planes[1];
-		}else{
-			return planes[0];
-		}
+	public PImage[] getProjectiles(){
+		return projectiles;
 	}
 	
 }

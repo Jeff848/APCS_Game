@@ -43,8 +43,8 @@ public class User extends MovingImage{
 		health = 500;
 		isFacingLeft = l;
 		xDirection = 0;
-		yDirection = 0;
-		// TODO Auto-generated constructor stub
+		yDirection = 0;		
+		
 	}
 	/**
 	 * Makes a plane with the parameters (null img)
@@ -127,34 +127,33 @@ public class User extends MovingImage{
 	public ArrayList<Fire> getFArr(){
 		return ff;
 	}
-	public void ab1(DrawingSurface s){
-		//System.out.println("arriba");
+	public void ab1(PImage img1, PImage img2){
 		if(!isFacingLeft)
-			mm.add(new Missile((int)(getX()+width), (int)(getY()+0.5*height), (int)width, (int)height, s));
+			mm.add(new Missile((int)(getX()+width), (int)(getY()+0.5*height), (int)width, (int)height, img1));
 		else
-			mm.add(new Missile((int)(getX()), (int)(getY()+0.5*height), (int)width, (int)height, s));
+			mm.add(new Missile((int)(getX()), (int)(getY()+0.5*height), (int)width, (int)height, img2));
 	}
-	public void ab2(DrawingSurface s) {
+	public void ab2(PImage img) {
 		// TODO Auto-generated method stub
 		if(!isFacingLeft)
-			bb.add(new Bomb((int)(getX()+width), (int)(getY()+0.5*height), (int)width, (int)height, s));
+			bb.add(new Bomb((int)(getX()+width), (int)(getY()+0.5*height), (int)width, (int)height, img));
 		else 
-			bb.add(new Bomb((int)(getX()), (int)(getY()+0.5*height), (int)width, (int)height, s));
+			bb.add(new Bomb((int)(getX()), (int)(getY()+0.5*height), (int)width, (int)height, img));
 	}
-	public void ab3(DrawingSurface s) {
+	public void ab3(PImage img1, PImage img2) {
 		if(!isFacingLeft)
-			zz.add(new Zap((int)(getX()+width), (int)(getY()+0.5*height), (int)width, (int)height, s));
+			zz.add(new Zap((int)(getX()+width), (int)(getY()+0.5*height), (int)width, (int)height, img1));
 		else
-			zz.add(new Zap((int)(getX()), (int)(getY()+0.5*height), (int)width, (int)height, s));
-		// TODO Auto-generated method stub
+			zz.add(new Zap((int)(getX()), (int)(getY()+0.5*height), (int)width, (int)height, img2));
+		
 		
 	}
-	public void ab4(DrawingSurface s) {
+	public void ab4(PImage img) {
 		// TODO Auto-generated method stub
 		if(!isFacingLeft)
-			ff.add(new Fire((int)(getX()+width), (int)(getY()+0.5*height), (int)width, (int)height, s));
+			ff.add(new Fire((int)(getX()+width), (int)(getY()+0.5*height), (int)width, (int)height, img));
 		else
-			ff.add(new Fire((int)(getX()), (int)(getY()+0.5*height), (int)width, (int)height, s));
+			ff.add(new Fire((int)(getX()), (int)(getY()+0.5*height), (int)width, (int)height, img));
 	}
 	public int getXDirection(){
 		return xDirection;
@@ -180,9 +179,8 @@ public class User extends MovingImage{
 		return "";
 	}
 	
-	public boolean isHit(Missile m, User u){
-		
-			if(m.getX()>=u.getX()&&m.getX()<=u.getMaxX()&&m.getY()>=u.getY()&&m.getY()<=u.getMaxY()){
+	public boolean isHit(Missile m, User u){		
+			if(m.getX()>=u.getX()&&m.getX()<=u.getX()+u.getWidth()&&m.getY()>=u.getY()&&m.getY()<=u.getY()+u.getHeight()){
 				return true;
 			}	
 			else{
@@ -190,33 +188,29 @@ public class User extends MovingImage{
 			}
 		
 	}
-	public boolean isHitB(Bomb b, User u){
-	
-			if(b.getX()>=u.getX()&&b.getX()<=u.getMaxX()&&b.getY()>=u.getY()&&b.getY()<=u.getMaxY()){
-				return true;
-			}	
-			else{
-				return false;
-			}
-	
+	public boolean isHitB(Bomb b, User u){	
+		if(b.getX()>=u.getX()&&b.getX()<=u.getX()+u.getWidth()&&b.getY()>=u.getY()&&b.getY()<=u.getY()+u.getHeight()){
+			return true;
+		}	
+		else{
+			return false;
+		}
 	}
-	public boolean isHitZ(Zap z, User u){
-		
-			if(z.getX()>=u.getX()&&z.getX()<=u.getMaxX()&&z.getY()>=u.getY()&&z.getY()<=u.getMaxY()){
-				return true;
-			}	
-			else{
-				return false;
-			}
+	public boolean isHitZ(Zap z, User u){		
+		if(z.getX()>=u.getX()&&z.getX()<=u.getX()+u.getWidth()&&z.getY()>=u.getY()&&z.getY()<=u.getY()+u.getHeight()){
+			return true;
+		}	
+		else{
+			return false;
+		}
 	}
 	public boolean isHitF(Fire f, User u){
-
-			if(f.getX()>=u.getX()&&f.getX()<=u.getMaxX()&&f.getY()>=u.getY()&&f.getY()<=u.getMaxY()){
-				return true;
-			}	
-			else{
-				return false;
-			}
+		if(f.getX()>=u.getX()&&f.getX()<=u.getX()+u.getWidth()&&f.getY()>=u.getY()&&f.getY()<=u.getY()+u.getHeight()){
+			return true;
+		}	
+		else{
+			return false;
+		}
 	}
 	public void setHealth(int x){
 		health += x;
