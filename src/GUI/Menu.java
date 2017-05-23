@@ -190,7 +190,7 @@ public class Menu {
 			s.text("P1: Press WASD to move. P2: Press ↑←↓→ to move", s.width/15+s.width/3+10, 3*s.height/10);
 			s.text("Abilities",s.width/15+5,4*s.height/10+58);
 			s.text("P1: Press 1234 to fire an ability. P2: Press 7890 to fire an ability", s.width/8+s.width/3, 6*s.height/10);
-			
+			s.text("Press SPACE to pause", s.width/15+s.width/4, 7*s.height/10);
 			s.image(u1,(int)(Math.sin(Math.toRadians(s.frameCount))*500)+s.width/2,s.height/10+58,128,64);
 			s.image(test, (s.frameCount*10)%(3*s.width/4)+s.width/4, 4*s.height/5,128,64);
 			s.fill(255);
