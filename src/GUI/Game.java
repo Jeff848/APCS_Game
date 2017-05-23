@@ -18,6 +18,8 @@ public class Game {
 	private ArrayList<Particle> particles1, particles2;
 	private int background;
 	PImage explosion;
+	private int victor;
+	
 	
 	public Game(User p1, User p2){
 		img1 = null;
@@ -28,6 +30,7 @@ public class Game {
 		particles1 = new ArrayList<Particle>();
 		particles2 = new ArrayList<Particle>();
 		background = 1;
+		victor = 0;
 	}
 	public Game() {
 		img1 = null;
@@ -38,14 +41,30 @@ public class Game {
 		particles1 = new ArrayList<Particle>();
 		particles2 = new ArrayList<Particle>();
 		background = 0;
+		victor = 0;
 	}
 	public void drawGameState(DrawingSurface s) {
 			if(s.isPressed(KeyEvent.VK_SPACE))
 			{
 				s.setState(s.PAUSE_STATE);
 				s.getKeys().clear();
-			}else
-			{
+			}else if(victor>0){
+				s.background(135,206,235);   // Clear the screen with a white background
+				s.fill(0);
+				s.textAlign(s.CENTER);
+				s.textSize(96);
+				if(victor == 1){
+					s.text("P1 Victory", s.width/2, s.height/2);
+				} else if(victor == 2){
+					s.text("P2 Victory", s.width/2, s.height/2);
+				}
+				s.fill(255);
+				s.rect(0, s.height-100, 250,100 );
+				s.fill(0);
+				s.textSize(48);
+				s.text("Main Menu", 125, s.height-50);
+			}
+			else {
 				if(background == 0){
 					if(s.frameCount<2){
 						for(int i = 0; i<10; i++){
@@ -99,6 +118,7 @@ public class Game {
 					s.rect(0,s.height/2,s.width,s.height/2);
 					
 				}	
+				
 				for(int i = 0; i<particles2.size();i++){
 					if(particles2.get(i).getX()<=-particles2.get(i).getWidth()-50||particles2.get(i).getX()>=s.width+particles2.get(i).getWidth()+50){
 						particles2.remove(i);
@@ -209,8 +229,7 @@ public class Game {
 					s.fill(0,255,0);
 					s.rect(0,0,p1.getHealth(),10);
 				} else{
-					//VICTORY SCREEN
-					s.setState(s.MENU_STATE);
+					victor = 2;
 				}
 				s.fill(255,0,0);
 				s.rect(s.width-500,0,500,10);
@@ -218,8 +237,9 @@ public class Game {
 					s.fill(0,255,0);
 					s.rect(s.width-p2.getHealth(),0,p2.getHealth(),10);
 				} else{
+					victor = 1;
 					//VICTORY SCREEN
-					s.setState(s.MENU_STATE);
+					
 				}
 				ArrayList<Missile> m = p1.getArr();
 				for(int i = 0; i<m.size(); i++){	
@@ -336,7 +356,7 @@ public class Game {
 					}
 					
 				}
-				
+			
 			}
 			
 	}
@@ -361,5 +381,12 @@ public class Game {
 	}
 	public void setBackground(int i){
 		background = i;
+	}
+	public void mousePressedGameState(DrawingSurface s, int x, int y){
+		if(victor>0){
+			if(Menu.isPointInside(0, s.height-100, 250,100,x,y)){
+				s.setState(s.MENU_STATE);
+			}
+		}
 	}
 }

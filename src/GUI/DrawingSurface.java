@@ -67,7 +67,7 @@ public class DrawingSurface extends PApplet {
 		projectiles[3] = loadImage("GUI"+fileSeperator+"ZapLeft.png");
 		projectiles[4] = loadImage("GUI"+fileSeperator+"Bomb.png");
 		projectiles[5] = loadImage("GUI"+fileSeperator+"Fire.png");
-		menu.setMenuUp(planes);
+		menu.setMenuUp(planes,this);
 	}
 	
 	public void settings() {
@@ -99,6 +99,8 @@ public class DrawingSurface extends PApplet {
 			menu.mousePressedMenuState(this,mouseX,mouseY);
 		} else if(state==PAUSE_STATE){
 			Pause.mousePressedPausedState(this,mouseX,mouseY);
+		} else if(state==GAME_STATE){
+			game.mousePressedGameState(this, mouseX, mouseY);
 		}
 	}
 	

@@ -12,6 +12,7 @@ public class Menu {
 	private User p1, p2;
 	private PImage u1,u2,u3,u4,u5,u6;
 	private int[] selections;
+	private PImage logo, test;
 	public Menu(){
 		state = 0;
 		selections = new int[3];
@@ -24,7 +25,7 @@ public class Menu {
 	}
 	public void drawMenuState(DrawingSurface s) {
 		if(state == 0){
-			s.background(255);   // Clear the screen with a white background
+			s.background(135,206,235);   // Clear the screen with a white background
 			s.fill(0);
 			s.textAlign(s.CENTER);
 			s.textSize(24);
@@ -32,37 +33,40 @@ public class Menu {
 			s.noFill();
 			s.textAlign(s.CENTER);
 			s.textSize(24);
-			
-			
+			s.image(logo, s.width/2-200, s.height/4-200,400,400);
+			s.image(u1, (s.frameCount*10)%(s.width+128)-128,s.height/4+400,128,64);
+			s.image(u2, (s.frameCount*10+256)%(s.width+128)-128,s.height/4+400,128,64);
+			s.image(u3, (s.frameCount*10-256)%(s.width+128)-128,s.height/4+400,128,64);
+			s.fill(255);
 			if(isPointInside(s.width/2-s.width/10, s.height/2, s.width/5, 50,s.mouseX,s.mouseY)){
 				s.fill(0,255,0);
 				s.rect(s.width/2-s.width/10, s.height/2, s.width/5, 50);
-				s.noFill();
+				s.fill(255);
 			} else {
 				s.rect(s.width/2-s.width/10, s.height/2, s.width/5, 50);
 				s.fill(0);
 				s.text("PLAY", s.width/2, s.height/2+25);
-				s.noFill();
+				s.fill(255);
 			}
 			if (isPointInside(s.width/2-s.width/10, s.height/2+50, s.width/5, 50,s.mouseX,s.mouseY)){
 				s.fill(0,255,0);
 				s.rect(s.width/2-s.width/10, s.height/2+50, s.width/5, 50);
-				s.noFill();
+				s.fill(255);
 			} else {
 				s.rect(s.width/2-s.width/10, s.height/2+50, s.width/5, 50);
 				s.fill(0);
 				s.text("OPTIONS", s.width/2, s.height/2+75);
-				s.noFill();
+				s.fill(255);
 			}
 			if (isPointInside(s.width/2-s.width/10, s.height/2+100, s.width/5, 50,s.mouseX,s.mouseY)) {
 				s.fill(0,255,0);
 				s.rect(s.width/2-s.width/10, s.height/2+100, s.width/5, 50);
-				s.noFill();
+				s.fill(255);
 			} else {
 				s.rect(s.width/2-s.width/10, s.height/2+100, s.width/5, 50);
 				s.fill(0);
 				s.text("QUIT", s.width/2, s.height/2+125);
-				s.noFill();
+				s.fill(255);
 			}
 		} else if(state == 1){
 			s.background(255);
@@ -177,9 +181,22 @@ public class Menu {
 			s.rect(s.width/2-50, s.height/2+s.height/3, 100, 50);
 			
 		} else if(state == 2){
-			s.background(255);
-			s.text("OPTIONS",s.width/2, s.height/2);
+			s.background(135,206,235);   // Clear the screen with a white background
+			s.fill(0);
+			s.textAlign(s.CENTER);
+			s.textSize(48);
+			s.text("Controls",s.width/15+10, s.height/10);
+			s.text("Movement",s.width/15+30,s.height/10+58);
+			s.text("P1: Press WASD to move. P2: Press ↑←↓→ to move", s.width/15+s.width/3+10, 3*s.height/10);
+			s.text("Abilities",s.width/15+5,4*s.height/10+58);
+			s.text("P1: Press 1234 to fire an ability. P2: Press 7890 to fire an ability", s.width/8+s.width/3, 6*s.height/10);
 			
+			s.image(u1,(int)(Math.sin(Math.toRadians(s.frameCount))*500)+s.width/2,s.height/10+58,128,64);
+			s.image(test, (s.frameCount*10)%(3*s.width/4)+s.width/4, 4*s.height/5,128,64);
+			s.fill(255);
+			s.rect(0, s.height-100, 250,100 );
+			s.fill(0);
+			s.text("Main Menu", 125, s.height-50);
 		}
 				
 		
@@ -237,18 +254,24 @@ public class Menu {
 				s.getGame().setBackground(2);
 				selections[2]=3;
 			} 
+		} else {
+			if(isPointInside(0, s.height-100, 250,100 ,x,y)){
+				state=0;
+			}
 		}
 	}
 	public static boolean isPointInside(double x, double y, double width, double height, double otherX, double otherY) {
 		return (x <= otherX && y <= otherY && x + width >= otherX && y + height >= otherY);
 	}
-	public void setMenuUp(PImage[] images){
+	public void setMenuUp(PImage[] images, DrawingSurface s){
 		u1=images[0];
 		u2=images[1];
 		u3=images[2];
 		u4=images[3];
 		u5=images[4];
 		u6=images[5];
+		logo = s.loadImage("GUI"+DrawingSurface.fileSeperator+"Logo.png");
+		test = s.loadImage("GUI"+DrawingSurface.fileSeperator+"Missile.png");
 		
 	}
 }
