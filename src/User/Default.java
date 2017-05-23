@@ -1,7 +1,6 @@
 package User;
 import java.awt.event.KeyEvent;
 
-import Abilities.Ability;
 import GUI.DrawingSurface;
 import processing.core.PImage;
 
@@ -20,8 +19,8 @@ public class Default extends User{
 	 * @param a- ability list
 	 * @param l- boolean that dictates which side the plane is on
 	 */
-	public Default(int x, int y, Ability[] a, boolean l) {
-		super(x, y, 128, 64, a, l);
+	public Default(int x, int y, boolean l) {
+		super(x, y, 128, 64, l);
 		if (isFacingLeft()) {
 			missile = new Element("missile", 10, "Missile.png",MissileCoolDownPeriod);
 			bomb = new Element("bomb", 12, "Bomb.png",BombCoolDownPeriod);

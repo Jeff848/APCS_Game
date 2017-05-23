@@ -2,7 +2,6 @@ package User;
 
 import java.util.ArrayList;
 
-import Abilities.Ability;
 import Abilities.Bomb;
 import Abilities.Fire;
 import Abilities.Missile;
@@ -38,7 +37,7 @@ public class User extends MovingImage{
 	 * @param a- ability list
 	 * @param l- dictates which side the plane is on
 	 */
-	public User(PImage image, int x, int y, int w, int h, Ability[] a, boolean l) {
+	public User(PImage image, int x, int y, int w, int h, boolean l) {
 		super(image, x, y, w, h);
 		health = 500;
 		isFacingLeft = l;
@@ -55,7 +54,7 @@ public class User extends MovingImage{
 	 * @param a- ability list
 	 * @param l- dictates which side the plane is on
 	 */
-	public User(int x, int y, int i, int j, Ability[] a, boolean l) {
+	public User(int x, int y, int i, int j, boolean l) {
 		super(x,y,i,j);
 		health = 500;
 		isFacingLeft = l;

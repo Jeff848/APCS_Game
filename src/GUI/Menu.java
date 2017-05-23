@@ -5,7 +5,10 @@ import User.Default;
 import User.HarryPotter;
 import User.User;
 import processing.core.PImage;
-
+/**
+ * Represents the menu of the game
+ *
+ */
 public class Menu {
 	
 	private int state;
@@ -13,6 +16,9 @@ public class Menu {
 	private PImage u1,u2,u3,u4,u5,u6;
 	private int[] selections;
 	private PImage logo, test;
+	/**
+	 * Creates a menu at the starting menu
+	 */
 	public Menu(){
 		state = 0;
 		selections = new int[3];
@@ -23,6 +29,10 @@ public class Menu {
 		u5=null;
 		u6=null;
 	}
+	/**
+	 * Draws the menu according to which menu state it is in
+	 * @param s- PApplet from processing.core
+	 */
 	public void drawMenuState(DrawingSurface s) {
 		if(state == 0){
 			s.background(135,206,235);   // Clear the screen with a white background
@@ -221,27 +231,27 @@ public class Menu {
 					}
 						//throw new RuntimeException("No plane selected");
 			} else if(isPointInside(0, s.height/10, s.width/3, s.height/5,x,y)){
-				p1= new Default(0,0,null,false);
+				p1= new Default(0,0,false);
 				selections[0]=1;
 				p1.setImage(u1);
 			} else if(isPointInside(s.width/3, s.height/10, s.width/3, s.height/5,x,y)){
-				p1= new Corgi(0,0,null,false);
+				p1= new Corgi(0,0,false);
 				selections[0]=2;
 				p1.setImage(u2);
 			} else if(isPointInside(2*s.width/3, s.height/10, s.width/3, s.height/5,x,y)){
-				p1= new HarryPotter(0,0,null,false);
+				p1= new HarryPotter(0,0,false);
 				selections[0]=3;
 				p1.setImage(u3);
 			} else if(isPointInside(0, s.height/4+s.height/10, s.width/3, s.height/5,x,y)){
-				p2= new Default(0,0,null,true);
+				p2= new Default(0,0,true);
 				selections[1]=1;
 				p2.setImage(u4);
 			} else if(isPointInside(s.width/3, s.height/4+s.height/10, s.width/3, s.height/5,x,y)){
-				p2= new Corgi(0,0,null,true);
+				p2= new Corgi(0,0,true);
 				selections[1]=2;
 				p2.setImage(u5);
 			} else if(isPointInside(2*s.width/3, s.height/4+s.height/10, s.width/3, s.height/5,x,y)){
-				p2= new HarryPotter(0,0,null,true);
+				p2= new HarryPotter(0,0,true);
 				selections[1]=3;
 				p2.setImage(u6);
 			} else if(isPointInside(0, s.height/2+s.height/10, s.width/3, s.height/5,x,y)){
@@ -260,9 +270,24 @@ public class Menu {
 			}
 		}
 	}
+	/**
+	 * Returns whether the point with coordinates otherX and otherY is within the rectangle with the rest of the parameters
+	 * @param x- x coordinate of the rectangle
+	 * @param y- y coordinate of the rectangle
+	 * @param width- width of the rectangle
+	 * @param height- height of the rectangle 
+	 * @param otherX- x coordinate of the given point
+	 * @param otherY- y coordinate of the given point
+	 * @return
+	 */
 	public static boolean isPointInside(double x, double y, double width, double height, double otherX, double otherY) {
 		return (x <= otherX && y <= otherY && x + width >= otherX && y + height >= otherY);
 	}
+	/**
+	 * Sets the menu up with the correct images
+	 * @param images- images of the plane
+	 * @param s- PApplet from processing.core
+	 */
 	public void setMenuUp(PImage[] images, DrawingSurface s){
 		u1=images[0];
 		u2=images[1];

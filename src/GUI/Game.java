@@ -10,7 +10,10 @@ import Abilities.Zap;
 import User.Default;
 import User.User;
 import processing.core.PImage;
-
+/**
+ * Represents the actual game screen of the game
+ *
+ */
 public class Game {
 	private PImage img1, img2;
 	private User p1, p2;
@@ -32,6 +35,9 @@ public class Game {
 		background = 1;
 		victor = 0;
 	}
+	/**
+	 * Creates a game 
+	 */
 	public Game() {
 		img1 = null;
 		img2 = null;
@@ -43,6 +49,10 @@ public class Game {
 		background = 0;
 		victor = 0;
 	}
+	/**
+	 * Draws the game with the corresponding planes, projectiles and background, if a winner hasn't already been chose or if the game isn't paused
+	 * @param s- PApplet from processing.core
+	 */
 	public void drawGameState(DrawingSurface s) {
 			if(s.isPressed(KeyEvent.VK_SPACE))
 			{
@@ -360,7 +370,14 @@ public class Game {
 			}
 			
 	}
-
+	/**
+	 * Sets the game up according to the chosen variables
+	 * @param default1- plane of player 1
+	 * @param default2- plane of player 2
+	 * @param i1- Image of the plane of p1
+	 * @param i2- Image of the plane of p2
+	 * @param s- PApplet from processing.core
+	 */
 	public void setGameUp(User default1, User default2, PImage i1, PImage i2, DrawingSurface s) {
 		p1=default1;
 		p2=default2;
@@ -382,6 +399,12 @@ public class Game {
 	public void setBackground(int i){
 		background = i;
 	}
+	/**
+	 * Determines whether the mouse is pressed on the menu button in the victory screen
+	 * @param s- PApplet from processing.core
+	 * @param x- x coordinate of the mouse
+	 * @param y- y coordinate of the mouse
+	 */
 	public void mousePressedGameState(DrawingSurface s, int x, int y){
 		if(victor>0){
 			if(Menu.isPointInside(0, s.height-100, 250,100,x,y)){

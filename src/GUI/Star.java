@@ -2,17 +2,24 @@ package GUI;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
-
+/**
+ * Represents a star particle in the background of the game
+ *
+ */
 public class Star extends Particle{
 
 	public Star(int width, int height, DrawingSurface s, boolean l, boolean rando) {
 		super(width, height, s, l, rando);
 	}
+	/**
+	 * Draws a diamond that represents a star
+	 * @param s- PApple from processing.core
+	 */
 	public void draw(DrawingSurface s){
 		s.pushMatrix();
 		s.fill(155,178,255);
 		s.noStroke();
-		move(s);
+		move();
 		
 		if(getDirection()){
 			if(x>=s.width/2+width){
@@ -29,6 +36,15 @@ public class Star extends Particle{
 		//System.out.println(x+""+y);
 		s.popMatrix();
 	}
+	/**
+	 * Creates a star polygon with n points and radius1 or radius 2 for each vertex
+	 * @param s- PApplet from processing.core
+	 * @param x- x coordinate of the star
+	 * @param y- y coordinate of the star
+	 * @param radius1- radius of the of the odd vertices
+	 * @param radius2- radius of the even vertices
+	 * @param npoints- number of vertices
+	 */
 	public void star(DrawingSurface s, float x, float y, float radius1, float radius2, int npoints) {
 		  float angle = PConstants.TWO_PI / npoints;
 		  float halfAngle = (float) (angle/2.0);

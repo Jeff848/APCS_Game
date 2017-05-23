@@ -1,5 +1,8 @@
 package GUI;
-
+/**
+ * Represents a cloud particle in the background of the game
+ *
+ */
 
 public class Cloud extends Particle{
 	int r,g,b;
@@ -10,11 +13,15 @@ public class Cloud extends Particle{
 		this.b=b;
 		// TODO Auto-generated constructor stub
 	}
+	/**
+	 * Draws a rounded rectangle that represents a cloud
+	 * @param s- PApplet from processing.core
+	 */
 	public void draw(DrawingSurface s){
 		s.pushMatrix();
 		s.fill(r,g,b);
 		s.noStroke();
-		move(s);
+		move();
 		if(getDirection()){
 			if(x>=s.width/2+width){
 				s.rect((int)(x-width), (int)(y), (int)(width), (int)(height),(int)height/4);

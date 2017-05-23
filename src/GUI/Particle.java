@@ -1,15 +1,23 @@
 package GUI;
 
 import User.MovingImage;
-
+/**
+ * Represents a particle effect in the background of the game
+ *
+ */
 public class Particle extends MovingImage{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private boolean isPointingLeft;
 	private int velocity;
-
+	/**
+	 * Creates the particle with the given width and height at a random location or at the middle of the screen on the left or right of the screen
+	 * @param width- given width of particle
+	 * @param height- given height of particle
+	 * @param s- PApplet from processing.core
+	 * @param l- boolean value of if it is on the right side
+	 * @param rando- boolean value of if it should be initialized randomly
+	 */
 	public Particle(int width, int height, DrawingSurface s, boolean l, boolean rando) {
 		super(0,0, width, height);
 		isPointingLeft=l;
@@ -32,10 +40,14 @@ public class Particle extends MovingImage{
 		isPointingLeft=l;
 		velocity = 10;
 	}
+	/**
+	 * Draws the particle moving towards the edge of the screen
+	 * @param s- PApplet from processing.core
+	 */
 	public void draw(DrawingSurface s) {
 		s.pushMatrix();
 		s.noStroke();
-		move(s);
+		move();
 		s.fill(255);
 		if(getDirection()){
 			if(x>=s.width/2+width){
@@ -52,7 +64,10 @@ public class Particle extends MovingImage{
 		s.stroke(0);
 		s.popMatrix();
 	}
-	public void move(DrawingSurface s){
+	/**
+	 * Moves to the right or left according to which side its on
+	 */
+	public void move(){
 		if(isPointingLeft){
 			moveByAmount(velocity,0);
 		}else{

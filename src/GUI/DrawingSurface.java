@@ -9,7 +9,6 @@ import User.Default;
 import User.HarryPotter;
 import User.MovingImage;
 import User.User;
-import Abilities.Ability;
 
 import processing.core.PApplet;
 import processing.core.PFont;
@@ -29,10 +28,8 @@ public class DrawingSurface extends PApplet {
 	public final int PAUSE_STATE = 1;
 	public final int MENU_STATE = 3;
 	private int state;
-	private User user1, user2;
 	private Game game;
 	private Menu menu;
-	private Pause pause;
 	private PImage[] planes;
 	private PImage[] projectiles;
 	
@@ -93,7 +90,9 @@ public class DrawingSurface extends PApplet {
 	}
 	
 
-	
+	/**
+	 * 
+	 */
 	public void mousePressed() {
 		if(state==MENU_STATE){
 			menu.mousePressedMenuState(this,mouseX,mouseY);
@@ -104,20 +103,22 @@ public class DrawingSurface extends PApplet {
 		}
 	}
 	
-	public void mouseDragged() {
-		
-	}
-	
+	/**
+	 * Adds the key pressed to the queue
+	 */
 	public void keyPressed() {
 		if (!keys.contains(keyCode))
 			keys.add(keyCode);
 	}
-
+	
+	/**
+	 * Removes the key released from the queue
+	 */
 	public void keyReleased() {
 		while(keys.contains(keyCode))
 			keys.remove(new Integer(keyCode));
 	}
-
+	
 	public boolean isPressed(Integer code) {
 		return keys.contains(code);
 	}
