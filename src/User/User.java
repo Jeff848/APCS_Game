@@ -8,7 +8,10 @@ import Abilities.Missile;
 import Abilities.Zap;
 import GUI.DrawingSurface;
 import processing.core.PImage;
-
+/**
+ * Represents the plane of the user
+ *
+ */
 public class User extends MovingImage{
 	/**
 	 * 
@@ -126,12 +129,21 @@ public class User extends MovingImage{
 	public ArrayList<Fire> getFArr(){
 		return ff;
 	}
+	/**
+	 * Adds a missile with the image depending on direction
+	 * @param img1- img of missile going right
+	 * @param img2- img of missile going left
+	 */
 	public void ab1(PImage img1, PImage img2){
 		if(!isFacingLeft)
 			mm.add(new Missile((int)(getX()+width), (int)(getY()+0.5*height), (int)width, (int)height, img1));
 		else
 			mm.add(new Missile((int)(getX()), (int)(getY()+0.5*height), (int)width, (int)height, img2));
 	}
+	/**
+	 * Adds a bomb with its corresponding image
+	 * @param img- img of bomb
+	 */
 	public void ab2(PImage img) {
 		// TODO Auto-generated method stub
 		if(!isFacingLeft)
@@ -139,6 +151,11 @@ public class User extends MovingImage{
 		else 
 			bb.add(new Bomb((int)(getX()), (int)(getY()+0.5*height), (int)width, (int)height, img));
 	}
+	/**
+	 * Adds a zap with the image depending on direction
+	 * @param img1- img of zap going right
+	 * @param img2- img of zap going left
+	 */
 	public void ab3(PImage img1, PImage img2) {
 		if(!isFacingLeft)
 			zz.add(new Zap((int)(getX()+width), (int)(getY()+0.5*height), (int)width, (int)height, img1));
@@ -147,6 +164,10 @@ public class User extends MovingImage{
 		
 		
 	}
+	/**
+	 * Adds a fire with its corresponding image
+	 * @param img- img of bomb
+	 */
 	public void ab4(PImage img) {
 		// TODO Auto-generated method stub
 		if(!isFacingLeft)
@@ -164,6 +185,10 @@ public class User extends MovingImage{
 		xDirection=xDir;
 		yDirection=yDir;
 	}
+	/**
+	 * Draws the plane depending 
+	 * @param s- PApplet from processing.core
+	 */
 	public void draw(DrawingSurface s)
 	{
 		if(isFacingLeft)
@@ -177,7 +202,12 @@ public class User extends MovingImage{
 	public String getName(){
 		return "";
 	}
-	
+	/**
+	 * Checks to see if the other user is hit by the missile
+	 * @param m- missile given
+	 * @param u- other user
+	 * @return boolean value if the missile is touching the other user
+	 */
 	public boolean isHit(Missile m, User u){		
 			if(m.getX()>=u.getX()&&m.getX()<=u.getX()+u.getWidth()&&m.getY()>=u.getY()&&m.getY()<=u.getY()+u.getHeight()){
 				return true;
@@ -187,6 +217,12 @@ public class User extends MovingImage{
 			}
 		
 	}
+	/**
+	 * Checks to see if the other user is hit by the bomb
+	 * @param b- bomb given
+	 * @param u- other user
+	 * @return boolean value if the bomb is touching the other user
+	 */
 	public boolean isHitB(Bomb b, User u){	
 		if(b.getX()>=u.getX()&&b.getX()<=u.getX()+u.getWidth()&&b.getY()>=u.getY()&&b.getY()<=u.getY()+u.getHeight()){
 			return true;
@@ -195,6 +231,12 @@ public class User extends MovingImage{
 			return false;
 		}
 	}
+	/**
+	 * Checks to see if the other user is hit by the zap
+	 * @param z- zap given
+	 * @param u- other user
+	 * @return boolean value if the zap is touching the other user
+	 */
 	public boolean isHitZ(Zap z, User u){		
 		if(z.getX()>=u.getX()&&z.getX()<=u.getX()+u.getWidth()&&z.getY()>=u.getY()&&z.getY()<=u.getY()+u.getHeight()){
 			return true;
@@ -203,6 +245,12 @@ public class User extends MovingImage{
 			return false;
 		}
 	}
+	/**
+	 * Checks to see if the other user is hit by the fire
+	 * @param f- fire given
+	 * @param u- other user
+	 * @return boolean value if the fire is touching the other user
+	 */
 	public boolean isHitF(Fire f, User u){
 		if(f.getX()>=u.getX()&&f.getX()<=u.getX()+u.getWidth()&&f.getY()>=u.getY()&&f.getY()<=u.getY()+u.getHeight()){
 			return true;

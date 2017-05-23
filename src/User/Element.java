@@ -6,7 +6,10 @@ import GUI.DrawingSurface;
 import processing.core.PFont;
 import processing.core.PImage;
 import processing.core.PShapeSVG.Font;
-
+/**
+ * Represents the cooldown timer
+ *
+ */
 public class Element {
 // updated by: Yash
 	
@@ -19,12 +22,23 @@ public class Element {
     private PImage image = null;
     private long coolDownPeriod;
   //  private static PImage[] numCountDown = new PImage[16];
+    /**
+     * Creates the element with the given parameters
+     * @param name- given name
+     * @param displayPosition- given position
+     * @param fileName- given filename
+     * @param coolDownPeriod- given cooldown
+     */
     public Element(String name, int displayPosition, String fileName, long coolDownPeriod){
 		this.name = name;
 		this.displayPosition = displayPosition;
 		this.fileName = fileName;
 		this.coolDownPeriod = coolDownPeriod;
 	}
+    /**
+     * Gets the time remaining
+     * @return the time remaining before an ability can be used again
+     */
 	public double getTimeRemaining() {
 		return (coolDownTime - (System.currentTimeMillis()/1000.0));
 	}
@@ -49,7 +63,10 @@ public class Element {
 	    	if(coolDownTime < timeWhenPressed)
 	    	   coolDownTime = timeWhenPressed + coolDownPeriod;
 	}
-	
+	/**
+	 * Draws the cooldown timer
+	 * @param s- PApplet from processing.core
+	 */
 	public void draw(DrawingSurface s)
 	{
 		if(image == null)
@@ -93,7 +110,10 @@ public class Element {
 //		System.out.println(name + ", x=" + xBegin + ", y=" + yBegin + ", w=" + width + ", h=" + height);
 		
 	}
-	
+	/**
+	 * Adds time to the cooldown based on time paused
+	 * @param pauseStartTime- time when pause was pressed
+	 */
 	public void addPauseTime(long pauseStartTime)
 	{
 		long time = (System.currentTimeMillis() - pauseStartTime)/1000;
